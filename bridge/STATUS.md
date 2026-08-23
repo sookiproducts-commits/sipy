@@ -2,7 +2,7 @@
 
 | Task | תיאור | סטטוס | בעלים |
 |------|-------|-------|-------|
-| TASK-01 | תשתית פרודקשן: PWA + deploy + tests + git | DONE | Codex |
+| TASK-01 | תשתית פרודקשן: PWA + deploy + tests + git | BLOCKED | Codex |
 | TASK-02 | GitHub remote + CI אוטומטי | TODO (אחרי 01) | Codex |
 | TASK-03 | commit+push לשינויי המסמכים (19.8) | TODO | Codex |
 | TASK-04 | ג'וב יומי 23:00 — סיכום כל הגורמים ליומן + re-sync | TODO | Codex |
@@ -10,4 +10,4 @@
 | TASK-06 | סוכני-קוד ב-codex-agents/ | TODO | Codex |
 | TASK-07 | מימוש ברנד v3 (מאושר) באפליקציה | TODO | Codex |
 
-עדכון אחרון: 2026-08-23 (Codex) · TASK-01 DONE; בדיקה מקומית מלאה נחסמה כי npm/Chromium חסרים, CI הוא שער האמת לפי ANSWER. · מותג v3 מאושר.
+עדכון אחרון: 2026-08-23 (Codex) · TASK-01 BLOCKED בשלב push: אין DNS/גישה ל-github.com בסביבת הריצה. הקוד וה-commit המקומי מוכנים. · מותג v3 מאושר.

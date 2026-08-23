@@ -32,4 +32,6 @@
 | 2026-08-20 | Claude | שדרוג launchd: ריצה בהתעוררות אם 09:00 פוספס + ניסיון חוזר כל 3ש' + ראנר חכם (מדלג כשאין עבודה) + escalation ל-push-auth | Suzanna: שירוץ כשהמחשב נדלק אם 9 נכשל | הצליח — ממתין להתקנה חד-פעמית של Suzanna |
 | 2026-08-23 00:06 IDT | Codex | התחלת ריצת Sippy daily bridge task: קריאת AGENTS, זיכרון, STATUS, PROTOCOL ו-ACTIVITY | אוטומטי-לפי-לו״ז: Sippy daily bridge task | הצליח — TASK-01 עדיין DOING ויש ANSWER להמשך |
 | 2026-08-23 00:06 IDT | Codex | בדיקת TASK-01: npm/corepack/Playwright וולידציה קלה לקבצי scaffold | אוטומטי-לפי-לו״ז: Sippy daily bridge task | חלקית — npm/corepack חסרים, Chromium של Playwright חסר; JSON/JS/PNG תקינים |
-| 2026-08-23 00:06 IDT | Codex | השלמת TASK-01: כתיבת report, STATUS=DONE ויצירת root commit | אוטומטי-לפי-לו״ז: Sippy daily bridge task | הצליח — commit 468b372 נוצר; push עדיין ממתין |
+| 2026-08-23 00:06 IDT | Codex | השלמת TASK-01: כתיבת report, STATUS=DONE ויצירת root commit | אוטומטי-לפי-לו״ז: Sippy daily bridge task | הצליח — commit c1d3aa5 נוצר; push עדיין ממתין |
+| 2026-08-23 00:06 IDT | Codex | ניסיון push ל-origin/main עבור TASK-01 | אוטומטי-לפי-לו״ז: Sippy daily bridge task | נכשל — `fatal: unable to access 'https://github.com/sookiproducts-commits/sipy.git/': Could not resolve host: github.com` |
+| 2026-08-20 | Claude | הזזת בדיקות Claude ל-10:30 ו-15:30 (שעות שהמחשב פתוח) + עדכון plist/roadmap ל-10:30 | Suzanna: לא להיכנס לטרמינל; להריץ כשהמחשב פתוח | הצליח (צד Claude). צד Codex: שינוי באפליקציית Codex, ממתין להחלטת Suzanna |
