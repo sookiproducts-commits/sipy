@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sippy — Moodboard · שפת מותג</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f8; --ink:#0f2e3a; --soft:#5b7885; --faint:#9db4bd;
+    --w1:#7ecbe6; --w2:#3a9fc9; --w3:#2181ad; --gold:#d6a24e;
+    --line:#e2ebee; --card:#fff; --sh:0 1px 2px rgba(15,46,58,.05),0 6px 20px rgba(15,46,58,.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Assistant",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;letter-spacing:-.01em;}
+  .page{max-width:920px;margin:0 auto;padding:40px 24px 80px;}
+  header.hero{background:linear-gradient(140deg,#0f2e3a,#1c5a72 70%,#2181ad);color:#fff;border-radius:28px;padding:44px 40px;position:relative;overflow:hidden;box-shadow:var(--sh);}
+  header.hero::after{content:"";position:absolute;left:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(126,203,230,.5),transparent 70%);}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9fd4ea;margin:0 0 10px;}
+  header.hero h1{margin:0 0 8px;font-size:40px;font-weight:800;letter-spacing:-.03em;}
+  header.hero p{margin:0;font-size:17px;color:#cfe7f1;max-width:560px;}
+  .drop{width:34px;height:40px;vertical-align:-8px;margin-inline-start:6px;}
+  section{margin-top:44px;}
+  h2{font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--w3);margin:0 0 4px;}
+  .sub{color:var(--soft);font-size:14px;margin:0 0 18px;}
+  .lead{font-size:19px;font-weight:600;color:var(--ink);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);}
+  /* compass */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px;box-shadow:var(--sh);}
+  .chip.no{color:#b06a4e;border-color:#f0d9cf;text-decoration:line-through;text-decoration-thickness:1.5px;opacity:.85;}
+  /* palette */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
+  .sw{border-radius:16px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--line);background:#fff;}
+  .sw .col{height:78px;}
+  .sw .meta{padding:10px 12px;}
+  .sw .nm{font-weight:700;font-size:13.5px;}
+  .sw .hex{font-size:12px;color:var(--soft);font-family:ui-monospace,Menlo,monospace;direction:ltr;unicode-bidi:isolate;}
+  /* type */
+  .type-card{padding:26px 28px;}
+  .spec{font-weight:800;font-size:46px;letter-spacing:-.03em;line-height:1.1;}
+  .spec .num{font-size:64px;}
+  .weights{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;color:var(--soft);}
+  .weights span{font-size:15px;}
+  /* icons */
+  .icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px;}
+  .ic{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:16px 8px 10px;text-align:center;}
+  .ic .box{height:44px;display:grid;place-items:center;color:var(--w2);}
+  .ic .cap{font-size:12px;color:var(--soft);font-weight:600;margin-top:6px;}
+  /* rules table */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .rule{padding:20px 22px;}
+  .rule h3{margin:0 0 4px;font-size:17px;font-weight:800;}
+  .rule .tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px;}
+  .rule.only .tag{background:#e4f3f9;color:var(--w3);}
+  .rule.label .tag{background:#faf1df;color:#a97a2f;}
+  .rule ul{margin:0;padding-inline-start:18px;color:var(--soft);font-size:14.5px;}
+  .rule li{margin:4px 0;}
+  .rule b{color:var(--ink);}
+  /* refs */
+  .refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+  .ref{padding:18px 20px;display:flex;flex-direction:column;gap:6px;}
+  .ref .app{font-weight:800;font-size:16px;}
+  .ref .take{font-size:14px;color:var(--soft);flex:1;}
+  .ref a{color:var(--w3);font-weight:700;font-size:13px;text-decoration:none;}
+  .ref a:hover{text-decoration:underline;}
+  .motion{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .m{padding:18px 20px;}
+  .m .t{font-weight:800;font-size:16px;margin-bottom:3px;}
+  .m .d{font-size:14px;color:var(--soft);}
+  footer{margin-top:50px;color:var(--faint);font-size:13px;text-align:center;}
+  @media(max-width:620px){.rules,.motion{grid-template-columns:1fr;}header.hero h1{font-size:32px;}.spec{font-size:36px;}.spec .num{font-size:48px;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <p class="kicker">Sippy · Brand Moodboard · v1</p>
+    <h1>שפת מותג<svg class="drop" viewBox="0 0 26 30"><defs><linearGradient id="d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ecbe6"/><stop offset="1" stop-color="#bfe6f4"/></linearGradient></defs><path d="M13 1.5c5.2 7 8.7 10.8 8.7 15.8A8.7 8.7 0 1 1 4.3 17.3C4.3 12.3 7.8 8.5 13 1.5z" fill="url(#d)"/></svg></h1>
+    <p>הדבר האחד שזוכר את המים שלך, כדי שאת לא תצטרכי. מוצר מוקפד, שקט ומזמין — ההפך מאפליקציית שתייה עמוסה.</p>
+  </header>
+
+  <section>
+    <h2>המצפן</h2>
+    <p class="sub">שלוש מילים שמכתיבות כל החלטה, ומה שאנחנו נמנעים ממנו.</p>
+    <p class="lead" style="margin-bottom:16px;">מוקפד · שקט · מזמין</p>
+    <div class="chips">
+      <span class="chip">מינימלי</span><span class="chip">מגע מים</span><span class="chip">אמון ופרטיות</span><span class="chip">תנועה עדינה</span><span class="chip">בינלאומי</span>
+      <span class="chip no">ילדותי</span><span class="chip no">גרפים ודשבורד</span><span class="chip no">streaks ולחץ</span><span class="chip no">קונפטי צעקני</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>פלטת צבעים</h2>
+    <p class="sub">כחול־מים כגיבור, דיו עמוק לטקסט, זהב שמור אך ורק לרגע ההגעה ליעד.</p>
+    <div class="swatches">
+      <div class="sw"><div class="col" style="background:#7ecbe6"></div><div class="meta"><div class="nm">Water Light</div><div class="hex">#7ECBE6</div></div></div>
+      <div class="sw"><div class="col" style="background:#3a9fc9"></div><div class="meta"><div class="nm">Water</div><div class="hex">#3A9FC9</div></div></div>
+      <div class="sw"><div class="col" style="background:#2181ad"></div><div class="meta"><div class="nm">Water Deep</div><div class="hex">#2181AD</div></div></div>
+      <div class="sw"><div class="col" style="background:#0f2e3a"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#0F2E3A</div></div></div>
+      <div class="sw"><div class="col" style="background:#6c8794"></div><div class="meta"><div class="nm">Ink Soft</div><div class="hex">#6C8794</div></div></div>
+      <div class="sw"><div class="col" style="background:#d6a24e"></div><div class="meta"><div class="nm">Gold · יעד</div><div class="hex">#D6A24E</div></div></div>
+      <div class="sw"><div class="col" style="background:#eef4f6;border-bottom:1px solid #e2ebee"></div><div class="meta"><div class="nm">Surface</div><div class="hex">#EEF4F6</div></div></div>
+      <div class="sw"><div class="col" style="background:#ffffff;border-bottom:1px solid #e2ebee"></div><div class="meta"><div class="nm">Card</div><div class="hex">#FFFFFF</div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>טיפוגרפיה</h2>
+    <p class="sub">Assistant — מודרני, נקי, עם עברית מלאה ומשקלים עשירים. ספרות בולטות למספר המרכזי.</p>
+    <div class="card type-card">
+      <div class="spec"><span class="num">1,450</span> מ״ל</div>
+      <div class="spec" style="font-size:26px;color:var(--soft);font-weight:600;">ממה את שותה? · What do you drink from?</div>
+      <div class="weights"><span>Regular 400</span><span>Medium 500</span><span>SemiBold 600</span><span>Bold 700</span><span style="font-weight:800;color:var(--ink)">ExtraBold 800</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>מערכת אייקונים</h2>
+    <p class="sub">קו אחיד, פינות מעוגלות, משקל 2–2.6. כלים מלאים בתכלת רך; פעולות בקו נקי.</p>
+    <div class="icons">
+      <div class="ic"><div class="box"><svg width="30" height="34" viewBox="0 0 46 54"><path d="M12 8h22l-2.6 33a4 4 0 0 1-4 3.6H18.6a4 4 0 0 1-4-3.6z" fill="#e4f3f9" stroke="#3a9fc9" stroke-width="2.6" stroke-linejoin="round"/></svg></div><div class="cap">כוס</div></div>
+      <div class="ic"><div class="box"><svg width="30" height="34" viewBox="0 0 46 54"><path d="M10 13h22v26a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5z" fill="#e4f3f9" stroke="#3a9fc9" stroke-width="2.6" stroke-linejoin="round"/><path d="M32 18h4a5 5 0 0 1 0 13h-4" fill="none" stroke="#3a9fc9" stroke-width="2.6"/></svg></div><div class="cap">ספל</div></div>
+      <div class="ic"><div class="box"><svg width="30" height="34" viewBox="0 0 46 54"><path d="M19 4h8v5c0 2 .8 3 1.8 4l2 2.6c1 1.6 1.7 3.6 1.7 5.6V40a4 4 0 0 1-4 4H19.5a4 4 0 0 1-4-4V21.2c0-2 .7-4 1.7-5.6l2-2.6c1-1 1.8-2 1.8-4z" fill="#e4f3f9" stroke="#3a9fc9" stroke-width="2.6" stroke-linejoin="round"/></svg></div><div class="cap">בקבוק</div></div>
+      <div class="ic"><div class="box"><svg width="30" height="34" viewBox="0 0 26 30"><path d="M13 1.5c5.2 7 8.7 10.8 8.7 15.8A8.7 8.7 0 1 1 4.3 17.3C4.3 12.3 7.8 8.5 13 1.5z" fill="#3a9fc9"/></svg></div><div class="cap">טיפה</div></div>
+      <div class="ic"><div class="box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div><div class="cap">הוספה</div></div>
+      <div class="ic"><div class="box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><div class="cap">ביטול</div></div>
+      <div class="ic"><div class="box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 6 19.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 3.3 6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H8A1.7 1.7 0 0 0 9 2.1V2a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 15 3.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V8a1.7 1.7 0 0 0 1.2 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div><div class="cap">הגדרות</div></div>
+      <div class="ic"><div class="box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><div class="cap">עריכה</div></div>
+      <div class="ic"><div class="box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg></div><div class="cap">שפה</div></div>
+      <div class="ic"><div class="box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a9fc9" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg></div><div class="cap">אישור</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>כלל האייקונים · מבוסס מחקר</h2>
+    <p class="sub">התובנה החוזרת מ-Mobbin: אייקון־בלבד לפעולות; אייקון + מילה קצרה לבחירות שנושאות משמעות.</p>
+    <div class="rules">
+      <div class="rule only card">
+        <span class="tag">אייקון בלבד</span>
+        <h3>פעלים · פעולות</h3>
+        <ul>
+          <li><b>הוספה, ביטול, הגדרות, שפה, עריכה, אישור.</b></li>
+          <li>מובנים גלובלית ללא מילה — כמו ב-Pillow, Otter, Claude.</li>
+          <li>מפחית טקסט, עוזר לבינלאומיות ולילדים.</li>
+        </ul>
+      </div>
+      <div class="rule label card">
+        <span class="tag">אייקון + מילה</span>
+        <h3>שמות עצם · בחירות</h3>
+        <ul>
+          <li><b>בחירת כלים, גדלים, יעד, כותרת הכניסה.</b></li>
+          <li>בחירה של משמעות דורשת מילה — כמו Uber Eats, Strava, GoFundMe.</li>
+          <li>המספר (250 / 8oz) תמיד נשאר — הוא לב המידע.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>תנועה</h2>
+    <p class="sub">עדינה ופיזיקלית — לא קפיצית. כל תנועה מספרת שהמים עלו.</p>
+    <div class="motion">
+      <div class="m card"><div class="t">מילוי נוזלי</div><div class="d">הכוס מתמלאת ב-0.9s עם האטה רכה; גל מתנועע בפני המים.</div></div>
+      <div class="m card"><div class="t">ספירת מספר</div><div class="d">המספר המרכזי "נספר" למעלה בעדינות במקום לקפוץ.</div></div>
+      <div class="m card"><div class="t">רגע היעד</div><div class="d">מסגרת זהב, טבעת אור מתרחבת, וניצוצות מרוסנים בשלושה גוונים — לא קונפטי.</div></div>
+      <div class="m card"><div class="t">מגע</div><div class="d">לחיצה מכווצת קלות (scale .96) עם משוב מיידי.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>שפות</h2>
+    <p class="sub">אסטרטגיה כפולה: מעט מילים + הרבה שפות. כרגע 9, זיהוי אוטומטי לפי הדפדפן, RTL לעברית וערבית.</p>
+    <div class="chips">
+      <span class="chip">עברית</span><span class="chip">English</span><span class="chip">Español</span><span class="chip">Français</span><span class="chip">Deutsch</span><span class="chip">Português</span><span class="chip">Italiano</span><span class="chip">Русский</span><span class="chip">العربية</span>
+    </div>
+    <p class="sub" style="margin-top:14px;">היחידות מתאימות לאזור: ארה״ב מקבלת fl oz, שאר העולם מ״ל — עם מתג ידני.</p>
+  </section>
+
+  <section>
+    <h2>קיר רפרנסים · Mobbin</h2>
+    <p class="sub">מה לקחנו מכל אחד. לחיצה פותחת את המסך המקורי ב-Mobbin.</p>
+    <div class="refs">
+      <div class="ref card"><div class="app">Me+</div><div class="take">עולם מים אימרסיבי + מתג יחידות ml/oz + הבטחת פרטיות. הכיוון הרגשי.</div><a href="https://mobbin.com/flows/4f2c4071-81b4-4276-8a8c-41b1a927b081" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">GO Club</div><div class="take">ווידג׳ט פרימיום כהה, מספר ענק, אייקון־הוספה זעיר. עוצמה מינימליסטית.</div><a href="https://mobbin.com/screens/82d8ae48-fa82-4d35-9cfb-e4d627951666" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Bevel</div><div class="take">לבן נקי, "Add 250ml" ו-"Add custom" כפילים בתחתית. פשטות.</div><a href="https://mobbin.com/screens/5709bac8-33b5-4ad7-b343-4be9f1cd5390" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Yazio</div><div class="take">שורת כוסות שמתמלאות בהקשה — הבסיס לאינטראקציה שלנו.</div><a href="https://mobbin.com/screens/4de789bb-e2fa-4434-953d-abb535fe8245" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Cal AI</div><div class="take">בחירת גודל מנה + קופי מעולה: "לכל אחד צרכים שונים…". טון היעד.</div><a href="https://mobbin.com/flows/90e209e3-2064-4ccf-83ce-f2fad8e2f390" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Uber Eats</div><div class="take">רשת בחירה עם אייקון + תווית + מצב נבחר ברור. תבנית ה-onboarding.</div><a href="https://mobbin.com/screens/c8cc7aac-e5ad-4a2f-b5ab-638cc34ddaac" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Pillow</div><div class="take">מסך כמעט ללא מילים: כפתור עגול מרכזי + ניווט אייקונים. עוז מינימליסטי.</div><a href="https://mobbin.com/screens/e94f610b-8667-4e31-bec8-5c0bc1512407" target="_blank">מסך ב-Mobbin ↗</a></div>
+      <div class="ref card"><div class="app">Otter</div><div class="take">ניווט אייקונים + FAB אחד בולט. חלוקת פעולה ראשית/משנית.</div><a href="https://mobbin.com/screens/9c865a72-9ca6-472b-9d78-77da748a488e" target="_blank">מסך ב-Mobbin ↗</a></div>
+    </div>
+  </section>
+
+  <footer>Sippy Moodboard · נוצר כבסיס עבודה · ניתן לעדכון תוך כדי</footer>
+</div>
+</body>
+</html>

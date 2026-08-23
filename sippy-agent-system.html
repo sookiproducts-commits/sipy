@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sippy — מערכת הסוכנים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1a2230; --muted:#5a6675; --faint:#8a94a3;
+    --line:#e6e9ee; --line2:#d9dee6;
+    --accent:#2f6f8f; --accent-bg:#e9f2f6;
+    --l0:#6b7280; --l0bg:#eef0f3; --l1:#2f6f8f; --l1bg:#e6f0f5;
+    --l2:#2f7d4f; --l2bg:#e7f3ec; --l3:#b07a2e; --l3bg:#f7efe0; --deny:#b0563a;
+    --sh:0 1px 2px rgba(20,30,45,.04),0 6px 18px rgba(20,30,45,.05);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Heebo",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;}
+  .page{max-width:960px;margin:0 auto;padding:0 22px 90px;}
+  header.top{background:var(--ink);color:#fff;border-radius:0 0 24px 24px;padding:40px 40px 34px;margin:0 -22px 10px;position:relative;overflow:hidden;}
+  header.top::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(47,111,143,.5),transparent 70%);}
+  .tag-top{font-size:12px;font-weight:700;letter-spacing:.16em;color:#9cc3d4;margin:0 0 8px;}
+  header.top h1{margin:0 0 6px;font-size:32px;font-weight:800;letter-spacing:-.02em;}
+  header.top p{margin:0;color:#cdd6e0;font-size:16px;max-width:640px;}
+  section{margin-top:34px;}
+  h2{font-size:21px;font-weight:800;margin:0 0 4px;letter-spacing:-.01em;}
+  h2 .n{color:var(--accent);font-weight:800;margin-inline-end:8px;}
+  .sub{color:var(--muted);font-size:14.5px;margin:0 0 16px;}
+  p{margin:0 0 10px;color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:18px 20px;}
+  .principles{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .principles .p{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--sh);}
+  .principles .p b{color:var(--ink);}
+  .principles .p span{color:var(--muted);font-size:14px;}
+  /* substrate */
+  .subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .subs .s{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);box-shadow:var(--sh);}
+  .subs .s .t{font-weight:700;}
+  .subs .s .d{font-size:13.5px;color:var(--muted);}
+  .can{border-inline-start:3px solid var(--l2);}
+  .cant{border-inline-start:3px solid var(--deny);}
+  /* levels */
+  .levels{display:flex;flex-direction:column;gap:8px;}
+  .lv{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);}
+  .badge{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none;margin-top:2px;}
+  .b0{background:var(--l0bg);color:var(--l0);}.b1{background:var(--l1bg);color:var(--l1);}
+  .b2{background:var(--l2bg);color:var(--l2);}.b3{background:var(--l3bg);color:var(--l3);}
+  .bx{background:#f6e4de;color:var(--deny);}
+  .lv .d{font-size:14px;color:var(--muted);}
+  .lv .d b{color:var(--ink);}
+  /* roster */
+  .phase{font-size:12.5px;font-weight:800;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin:22px 0 10px;}
+  .agent{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:16px 18px;margin-bottom:12px;}
+  .agent .h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .agent .h .nm{font-weight:800;font-size:16.5px;}
+  .agent .h .role{color:var(--faint);font-size:13px;}
+  .agent .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;font-size:13.8px;}
+  .agent .grid .k{color:var(--faint);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:1px;}
+  .agent .grid .v{color:var(--muted);}
+  .agent .grid .deny .v{color:var(--deny);}
+  .full{grid-column:1 / -1;}
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:13.8px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);}
+  th,td{padding:11px 13px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#eef1f4;font-weight:700;font-size:12.5px;color:var(--ink);}
+  td{color:var(--muted);}
+  tr:last-child td{border-bottom:none;}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#eef1f4;padding:1px 6px;border-radius:5px;direction:ltr;display:inline-block;}
+  .tree{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:16px 18px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--muted);direction:ltr;text-align:left;white-space:pre;overflow-x:auto;}
+  .guard{border-inline-start:3px solid var(--deny);background:#fbf1ec;border-radius:10px;padding:14px 16px;color:#8a4a34;}
+  .guard b{color:#7a3f2c;}
+  .roadmap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .rm{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);box-shadow:var(--sh);}
+  .rm .ph{font-weight:800;font-size:14px;margin-bottom:6px;}
+  .rm ul{margin:0;padding-inline-start:18px;font-size:13.5px;color:var(--muted);}
+  .rm li{margin:4px 0;}
+  .rm .now{color:var(--l2);font-weight:700;}
+  footer{margin-top:44px;color:var(--faint);font-size:12.5px;text-align:center;}
+  @media(max-width:680px){.principles,.subs,.agent .grid,.roadmap{grid-template-columns:1fr;}header.top{padding:34px 24px 30px;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <p class="tag-top">SIPPY · AGENT SYSTEM · v1 (טרום־השקה)</p>
+    <h1>מערכת הסוכנים</h1>
+    <p>מי כל סוכן, מה מותר לו, אילו הרשאות יש לו, מתי הוא פועל, ומה הוא מתעד עבורך. מסמך ממשל — מקור אמת אחד לכל פעילות אוטומטית ומחצי־אוטומטית בפרויקט.</p>
+  </header>
+
+  <section>
+    <h2><span class="n">0</span>עקרונות יסוד</h2>
+    <p class="sub">חמישה כללים שגוברים על הכול.</p>
+    <div class="principles">
+      <div class="p"><b>אדם בלולאה לרגעים הרגישים.</b> <span>כל פעולה בלתי־הפיכה, כל הוצאת כסף, וכל פרסום פומבי — דורשים אישור אנושי מפורש. תמיד.</span></div>
+      <div class="p"><b>הרשאות מינימום.</b> <span>לכל סוכן רק הכלים שהוא חייב. אין גישה גורפת "ליתר ביטחון".</span></div>
+      <div class="p"><b>תיעוד חובה.</b> <span>שום סוכן לא פועל בלי להשאיר רשומה: מה, מתי, למה, ומה מחכה להחלטתך.</span></div>
+      <div class="p"><b>חינם תחילה.</b> <span>אין backend ואין עלות עד שיש הצדקה. מוניטיזציה היא שלב מוגדר, לא ברירת מחדל.</span></div>
+      <div class="p"><b>כנות על אוטונומיה.</b> <span>שום סוכן לא "רץ 24/7 ומוציא כסף לבד". מה שלא אפשרי — מסומן ככזה במפורש.</span></div>
+      <div class="p"><b>מתג עצירה.</b> <span>אפשר להשבית כל משימה מתוזמנת בכל רגע. את שולטת בקצב.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">1</span>איך סוכנים באמת רצים כאן</h2>
+    <p class="sub">המצע הטכני האמיתי — לא הבטחות.</p>
+    <div class="subs">
+      <div class="s can"><div class="t">תת־סוכן בתוך סשן</div><div class="d">קם, מבצע משימה אחת, מחזיר תוצאה, נעלם. בלי זיכרון עצמאי. מתאים לביקורת, בנייה, בדיקות.</div></div>
+      <div class="s can"><div class="t">משימה מתוזמנת (סשן חדש)</div><div class="d">נפתחת לפי לוח זמנים (מינימום שעתי), עובדת, משאירה תיעוד בקבצים, ויכולה להפעיל תת־סוכנים. זה ה"מתעורר לבד".</div></div>
+      <div class="s can"><div class="t">קבצים = הזיכרון המשותף</div><div class="d">לוגים, תורי־אישור והחלטות נשמרים בתיקיית הפרויקט. כך ריצה אחת "יודעת" מה עשתה הקודמת.</div></div>
+      <div class="s cant"><div class="t">מה שלא קיים</div><div class="d">דמון 24/7; הוצאת תקציב פרסום עצמאית; פרסום אוטומטי בקהילות; פעולה בלתי־הפיכה בלי אדם. לא טכנית ולא בטיחותית.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>רמות אוטונומיה</h2>
+    <p class="sub">כל סוכן מקבל רמה. הרמה קובעת מה מותר לו לעשות בלי אישורך.</p>
+    <div class="levels">
+      <div class="lv"><span class="badge b0">L0 · ייעוץ</span><div class="d"><b>ממליץ בלבד.</b> מנתח ומציע. לא נוגע בכלום.</div></div>
+      <div class="lv"><span class="badge b1">L1 · הכנה</span><div class="d"><b>מכין ומתייק לאישור.</b> כותב טיוטות, בונה תור הזדמנויות/פוסטים — ואת מאשרת לפני שמשהו יוצא החוצה.</div></div>
+      <div class="lv"><span class="badge b2">L2 · פעולה בארגז חול</span><div class="d"><b>פועל על קבצים/קוד בלבד — הפיך.</b> כותב קוד, מריץ בדיקות, עורך תוצרים. אפס אפקט חיצוני.</div></div>
+      <div class="lv"><span class="badge b3">L3 · פעולה חיצונית באישור</span><div class="d"><b>מפרסם/מוציא — רק אחרי אישור מפורש שלך</b>, ורק דרך חשבון שלך.</div></div>
+      <div class="lv"><span class="badge bx">אין L4 לכסף</span><div class="d"><b>אין רמה שמאפשרת הוצאת כסף או פעולה בלתי־הפיכה בלי אדם.</b> זה קו אדום קבוע.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>מצבת הסוכנים</h2>
+    <p class="sub">לפי שלבי השרשרת. כל סוכן: תפקיד · רמה · כלים · אסור · הפעלה · תיעוד · שער אנושי.</p>
+
+    <div class="phase">א · בנייה ואיכות</div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Art Director</span><span class="role">בקרת מותג</span><span class="badge b0">L0</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">קריאת קבצים, צילום Playwright, חיפוש רשת (פונטים/רישוי)</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">כתיבה לאפליקציה, אישור עצמי</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה / אחרי כל שינוי עיצובי</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">ורדיקט PASS/FAIL מול הברנד בוק</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">דוח ביקורת עם ממצאים מדורגים + ורדיקט → <code>/logs/brand-review-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Product / UX Auditor</span><span class="role">בקרת חוויה</span><span class="badge b0">L0</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">קריאת קבצים, Playwright (אינטראקציה + a11y), חיפוש</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">כתיבה לקוד המוצר</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה / אחרי כל שינוי UX</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">אודיט עם דרגות חומרה + מה חוסם</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">רשימת ממצאים (חומרה, מיקום, תיקון) → <code>/logs/ux-audit-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Build Agent</span><span class="role">מהנדס</span><span class="badge b2">L2</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">עריכת קבצים, bash, Playwright (בדיקה)</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">פריסה (deploy), גישה לסודות/מפתחות</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה, מול הברנד בוק והאודיטים</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">שינויים הפיכים; פריסה נפרדת ובאישור</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">מה שונה + תוצאות בדיקה → <code>/logs/build-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">QA / Test Agent</span><span class="role">בקרת איכות</span><span class="badge b2">L2</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">bash, Playwright, סריקות (i18n, ניגודיות, קישורים)</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">שינוי קוד מוצר (מדווח בלבד)</span></div>
+        <div><span class="k">הפעלה</span><span class="v">אוטומטי אחרי כל Build</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">חוסם מעבר אם בדיקה נכשלת</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">מטריצת בדיקות עבר/נכשל → <code>/logs/qa-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="phase">ב · השקה ותפעול</div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Release Agent</span><span class="role">שחרור</span><span class="badge b1">L1</span><span class="badge b3">L3</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">קונפיג פריסה, PWA manifest, service worker</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">פריסה בפועל בלי אישורך + חשבון האירוח שלך</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה, אחרי QA ירוק</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">את מאשרת ומחברת דומיין/חשבון</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">גרסה, מה נפרס, כתובת → <code>/logs/release-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Analytics Agent</span><span class="role">מדידה</span><span class="badge b0">L0</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">מחבר אנליטיקס (חשבון שלך), חיפוש</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">איסוף מידע אישי; שינוי הגדרות</span></div>
+        <div><span class="k">הפעלה</span><span class="v">מתוזמן (שבועי) + לפי דרישה</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">סיכום מגמות + המלצות בלבד</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">דוח מגמות שבועי → <code>/logs/analytics-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="phase">ג · צמיחה והפצה</div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Distribution Scout</span><span class="role">הפצה אורגנית</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">חיפוש רשת, דפדפן (קריאה בלבד)</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">פרסום אוטומטי בקהילות (= ספאם/חסימה)</span></div>
+        <div><span class="k">הפעלה</span><span class="v">מתוזמן יומי (בוקר)</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">את מאשרת/מפרסמת את הבודדים הלגיטימיים</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">תדריך יומי: 2–3 הזדמנויות + פוסט מוכן לכל אחת → <code>/queues/distribution-YYYY-MM-DD.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Paid Ads Planner</span><span class="role">פרסום בתשלום</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">חיפוש, ניסוח קמפיין/טירגוט/תקציב מומלץ</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">הוצאת כסף / הפעלת קמפיין לבד — לעולם</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">הוצאה וחשבון המודעות שלך, באישור, עם תקרת תקציב</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">תוכנית קמפיין + תחזית → <code>/queues/ads-plan-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Content / Copy Agent</span><span class="role">תוכן</span><span class="badge b1">L1</span><span class="badge b2">L2</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">עריכת קבצים (דף נחיתה/קופי), חיפוש</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">פרסום חיצוני בלי אישור</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה / לפי בקשת ה-Scout</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">אישור טון ומסר</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">טיוטות + גרסאות → <code>/logs/content-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="phase">ד · מוצר ומוניטיזציה (שלב עתידי)</div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Product Analyst</span><span class="role">התפתחות מוצרית</span><span class="badge b0">L0</span><span class="badge b1">L1</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">קריאת פידבק/אנליטיקס, חיפוש</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">שינוי מוצר לבד</span></div>
+        <div><span class="k">הפעלה</span><span class="v">מתוזמן (שבועי/דו־שבועי)</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">מפת דרכים מוצעת לתעדוף שלך</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">תובנות + הצעות מדורגות → <code>/logs/product-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Monetization Agent</span><span class="role">מוניטיזציה</span><span class="badge b1">L1</span><span class="badge b2">L2</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">מידול תמחור, אפיון paywall + backend/DB (בארגז חול)</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">חיוב אמיתי / פריסת backend חי בלי אישור + KYC שלך</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה, כשיש הצדקה מהנתונים</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">הפעלת התשלום (5$) והחשבון — שלך</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">אפיון תשלום + entitlement + עלויות → <code>/logs/monetization-*.md</code></span></div>
+      </div>
+    </div>
+
+    <div class="agent">
+      <div class="h"><span class="nm">Experiment Agent</span><span class="role">ניסויים</span><span class="badge b1">L1</span><span class="badge b2">L2</span></div>
+      <div class="grid">
+        <div><span class="k">כלים</span><span class="v">בניית וריאנטים, הרצת בדיקות בארגז חול</span></div>
+        <div class="deny"><span class="k">אסור</span><span class="v">ניסוי חי על משתמשים בלי אישור</span></div>
+        <div><span class="k">הפעלה</span><span class="v">לפי דרישה</span></div>
+        <div><span class="k">שער אנושי</span><span class="v">אישור לפני חשיפה לקהל</span></div>
+        <div class="full"><span class="k">תיעוד</span><span class="v">השערה, וריאנט, תוצאה → <code>/logs/experiment-*.md</code></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>מודל גישה והרשאות</h2>
+    <p class="sub">כל חשבון מחובר בנפרד ובבטחה — OAuth/מחבר ייעודי, לעולם לא סיסמה בצ'אט. סודות לא נשמרים בלוגים.</p>
+    <table>
+      <tr><th>שירות</th><th>בעלות</th><th>איך מחברים</th><th>מי משתמש</th></tr>
+      <tr><td>אירוח (Netlify/Cloudflare)</td><td>את</td><td>הרשמה + OAuth, שכבה חינמית</td><td>Release</td></tr>
+      <tr><td>אנליטיקס (Plausible/GoatCounter)</td><td>את</td><td>מחבר / סניפט, בלי עוגיות</td><td>Analytics</td></tr>
+      <tr><td>ספק תשלום (עתידי)</td><td>את</td><td>הרשמה + KYC (ת"ז/בנק)</td><td>Monetization (אפיון בלבד)</td></tr>
+      <tr><td>חשבון מודעות (עתידי)</td><td>את</td><td>חשבון + אמצעי תשלום + תקרה</td><td>Ads Planner (תכנון בלבד)</td></tr>
+      <tr><td>דפדפן (Claude in Chrome)</td><td>את</td><td>הרחבה מותקנת אצלך</td><td>Scout (קריאה), פרסום רק באישור</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>תזמון ושרשור</h2>
+    <p class="sub">מי רץ לפי דרישה, מי מתעורר לבד, ומי מפעיל את מי. שרשור = אורקסטרטור בתוך ריצה, או ריצות מתוזמנות שחולקות מצב דרך קבצים.</p>
+    <table>
+      <tr><th>סוכן</th><th>הפעלה</th><th>קצב</th><th>מפעיל בהמשך</th></tr>
+      <tr><td>Build → QA → Art/UX</td><td>לפי דרישה (שרשרת בתוך ריצה)</td><td>לכל שינוי</td><td>ורדיקט חוזר אלייך</td></tr>
+      <tr><td>Distribution Scout</td><td>מתוזמן</td><td>יומי (בוקר)</td><td>מבקש טיוטות מ-Content</td></tr>
+      <tr><td>Analytics</td><td>מתוזמן</td><td>שבועי</td><td>מזין את Product Analyst</td></tr>
+      <tr><td>Product Analyst</td><td>מתוזמן</td><td>דו־שבועי</td><td>מציע ל-Build/Experiment</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:13.5px">משימות מתוזמנות נוצרות רק דרך מנגנון ה"משימות המתוזמנות" (סשן חדש לכל הפעלה), וניתנות להשבתה בכל רגע.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>תיעוד ובקרה — "חדר הבקרה" שלך</h2>
+    <p class="sub">כל פעילות משאירה עקבות בתיקיית הפרויקט. שלוש תיקיות = מעקב מלא + תיבת אישורים.</p>
+    <div class="tree">sipy/
+├─ logs/         # מה כל סוכן עשה: תאריך, סוכן, פעולה, רמה, פלט
+├─ queues/       # ממתין לאישורך: תדריכי הפצה, תוכניות מודעות
+└─ decisions/    # החלטות שהתקבלו + נימוק (שרשרת החלטות)</div>
+    <p style="margin-top:12px">כל רשומת לוג כוללת: <b>תאריך · סוכן · רמת אוטונומיה · פעולה · קלט · פלט · מה מחכה להחלטתך</b>. כך יש לך בכל רגע תמונה של מה קרה ומה תלוי בך.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">7</span>Guardrails ומתג עצירה</h2>
+    <div class="guard">
+      <p style="margin:0 0 8px"><b>קווים אדומים קבועים:</b></p>
+      <p style="margin:0">• אין הוצאת כסף בלי אישור אנושי ותקרת תקציב מוגדרת מראש. • אין פעולה בלתי־הפיכה בלי אישור. • אין פרסום פומבי בקהילות באופן אוטומטי. • אין איסוף מידע אישי. • סודות/מפתחות לעולם לא בלוגים. • כל המשימות המתוזמנות ניתנות להשבתה מיידית (מתג עצירה) — את שולטת בקצב ויכולה לעצור הכל בכל רגע.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">8</span>מפת הפעלה מדורגת</h2>
+    <p class="sub">לא מפעילים הכול בבת אחת. מדליקים סוכנים לפי שלב.</p>
+    <div class="roadmap">
+      <div class="rm"><div class="ph">עכשיו · טרום־השקה</div><ul><li class="now">Art Director</li><li class="now">Product/UX Auditor</li><li class="now">Build + QA</li><li>מטרה: להביא את המוצר ל-PASS מול הברנד בוק</li></ul></div>
+      <div class="rm"><div class="ph">בהשקה</div><ul><li>Release (PWA + כתובת)</li><li>Analytics (חינמי)</li><li>Distribution Scout (תדריך יומי)</li><li>Content/Copy</li></ul></div>
+      <div class="rm"><div class="ph">כשמצדיק</div><ul><li>Paid Ads Planner (תקציב + אישור)</li><li>Monetization (5$ + backend/DB)</li><li>Product Analyst + Experiment</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">9</span>מפתחות API וסודות</h2>
+    <p class="sub">כלל־על: סוד לעולם לא מופיע בצ'אט, בלוגים, או ב-repo. הוא חי רק בסביבה מאובטחת, ומוזרק בזמן ריצה.</p>
+    <table>
+      <tr><th>סוג</th><th>איפה נשמר</th><th>היקף (scope)</th><th>רוטציה</th></tr>
+      <tr><td>מפתחות אירוח/פריסה</td><td>משתני סביבה אצל ספק האירוח</td><td>מינימלי — רק הפרויקט</td><td>בכל חשד, ומעת לעת</td></tr>
+      <tr><td>מפתח אנליטיקס</td><td>סניפט צד־לקוח (ציבורי ממילא) / env</td><td>קריאה בלבד</td><td>לפי הצורך</td></tr>
+      <tr><td>מפתחות תשלום (עתידי)</td><td>secrets manager / env של ה-backend</td><td>מפוצל: publishable מול secret</td><td>חובה תקופתית</td></tr>
+      <tr><td>טוקני OAuth (מחברים)</td><td>אחסון המחבר, לא בקוד</td><td>ההרשאה המצומצמת ביותר</td><td>אוטומטית ע"י הספק</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:13.5px">כללים: <b>least privilege</b> (read-only כברירת מחדל), <code>.gitignore</code> לכל קובץ סוד, אף פעם לא commit של מפתח, והפרדה בין מפתח ציבורי (publishable) לסודי. סוכן מקבל *גישה* לפעולה — לא את המפתח הגולמי לתוך ההקשר שלו.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span>גישת MCP וכלים — per סוכן</h2>
+    <p class="sub">MCP = הפרוטוקול שמחבר את הסוכן לכלים ולשירותים חיצוניים. כל סוכן מקבל רק את השרתים שהוא חייב.</p>
+    <table>
+      <tr><th>סוכן</th><th>MCP / כלים</th><th>מצב גישה</th></tr>
+      <tr><td>Build / QA</td><td>מערכת קבצים, bash, Playwright</td><td>מקומי, ארגז חול</td></tr>
+      <tr><td>Art Director / UX</td><td>קבצים, Playwright, WebSearch</td><td>קריאה בלבד</td></tr>
+      <tr><td>Distribution Scout</td><td>WebSearch, Claude-in-Chrome (דפדפן)</td><td>קריאה; פרסום רק באישור</td></tr>
+      <tr><td>Analytics</td><td>מחבר אנליטיקס (Plausible/GoatCounter)</td><td>קריאה, חשבון שלך</td></tr>
+      <tr><td>Release</td><td>MCP/CLI של האירוח, git</td><td>פריסה באישור</td></tr>
+      <tr><td>Monetization</td><td>MCP ספק תשלום + DB</td><td>אפיון בארגז חול; חי — באישור</td></tr>
+    </table>
+    <div class="guard" style="margin-top:12px"><b>אזהרה כנה:</b> חלק מ-MCP מאומתים אינטראקטיבית (למשל דפדפן, מחברים מסוימים) עשויים <b>לא להיות זמינים בריצה מתוזמנת/headless</b> כשאינך נוכחת. לכן משימות שדורשות אימות אינטראקטיבי מסומנות כ"דורשות נוכחות", ולא ייכללו באוטומציה יומית עיוורת.</div>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span>סקילים — per סוכן</h2>
+    <p class="sub">סקיל = חבילת הוראות שמורה ולשימוש חוזר. זה מה שהופך "פרסונה בתדריך" למומחה עם תקן קבוע.</p>
+    <table>
+      <tr><th>סוכן</th><th>סקילים נדרשים</th><th>סטטוס</th></tr>
+      <tr><td>Art Director</td><td><code>brand-review</code> (רובריקה + שער PASS/FAIL) + הברנד בוק</td><td>לבנות</td></tr>
+      <tr><td>UX Auditor</td><td><code>ux-audit</code> (היוריסטיקות + a11y + edge cases)</td><td>לבנות</td></tr>
+      <tr><td>Build</td><td><code>coding-standards</code> + design-to-code (Figma) לפי הצורך</td><td>לבנות</td></tr>
+      <tr><td>Content / Copy</td><td><code>my-writing-style</code> (הטון שלך) + dataviz</td><td>קיים / להתאים</td></tr>
+      <tr><td>Analytics / Product</td><td><code>dataviz</code> (חזותיות עקביות)</td><td>קיים</td></tr>
+      <tr><td>Release</td><td><code>pwa-deploy-checklist</code></td><td>לבנות</td></tr>
+      <tr><td>Monetization</td><td><code>payment-backend</code> (auth + entitlement + DB)</td><td>לבנות (עתידי)</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:13.5px">הסקילים שאבנה נמסרים לך כקבצים לשמירה בחשבון — כך התקן נשמר עקבי בין סשנים, ולא תלוי בתדריך חד־פעמי.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span>לולאת למידה</h2>
+    <p class="sub">בכנות: אין אימון־מודל (fine-tuning). הלמידה כאן היא <b>זיכרון מוסדי בקבצים</b> — המערכת נעשית עקבית וטובה יותר כי התקן מתעדכן, לא כי המשקלים משתנים.</p>
+    <div class="tree">פעולה  →  תיעוד (/logs)  →  ביקורת (אדם + אודיט)  →  עדכון תקן  →  הסוכן הבא יורש שיפור
+                                                   │
+                    עדכון: brand book · skills · /decisions · lessons.md</div>
+    <div class="principles" style="margin-top:12px">
+      <div class="p"><b>תיקונים חוזרים לתקן.</b> <span>כל פעם שאת מתקנת בחירה, התיקון נכתב לתוך הברנד בוק/סקיל — כך הוא לא חוזר.</span></div>
+      <div class="p"><b>רטרוספקטיבה.</b> <span><code>lessons.md</code> אחרי כל מחזור: מה עבד, מה נכשל, מה משנים.</span></div>
+      <div class="p"><b>פידבק משתמשים → מוצר.</b> <span>Product Analyst אוסף פידבק ומתרגם למפת דרכים.</span></div>
+      <div class="p"><b>גרסאות לתקן.</b> <span>הברנד בוק והסקילים ממוספרים; אפשר לראות מה השתנה ומתי.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">13</span>ממשל נוסף שכדאי (מה שלא שאלת)</h2>
+    <p class="sub">שכבות שהופכות את זה למערכת עמידה, לא רק לאוסף סוכנים.</p>
+    <div class="principles">
+      <div class="p"><b>Definition of Done.</b> <span>שער קבלה מוגדר לכל שלב — מתי משימה "גמורה" (עברה QA, עברה בקרת מותג, מתועדת).</span></div>
+      <div class="p"><b>מדיניות כשל והסלמה.</b> <span>סוכן שנכשל: retry מוגבל → לוג → הסלמה אלייך. לעולם לא כשל שקט.</span></div>
+      <div class="p"><b>תקציב שימוש של הסוכנים.</b> <span>לסוכנים עצמם יש עלות (טוקנים/סשנים — נתקלנו במגבלה!). תקרה, מודל זול למשימות מכניות, batching.</span></div>
+      <div class="p"><b>פרטיות ותאימות.</b> <span>בינלאומי → GDPR/CCPA. local-first, בלי PII, אנליטיקס ללא עוגיות, דף פרטיות.</span></div>
+      <div class="p"><b>אבטחה ותלויות.</b> <span>סריקת תלויות/חולשות, בלי קוד לא מהימן, CSP ל-PWA.</span></div>
+      <div class="p"><b>גרסאות ו-rollback.</b> <span>הכול ב-git; כל תוצר הפיך; אפשר לחזור לגרסה קודמת.</span></div>
+      <div class="p"><b>חוזי קלט/פלט בין סוכנים.</b> <span>מבנה פלט מוגדר (schema) לכל מסירה — כדי שהעברה בין סוכנים לא תישבר.</span></div>
+      <div class="p"><b>מדדי איכות (evals).</b> <span>שיעור PASS, באגים שנתפסו, אחוז rework — כדי לדעת אם הסוכנים באמת טובים.</span></div>
+      <div class="p"><b>RACI אנושי.</b> <span>מי מאשר מה: את = מאשרת על כסף, פרסום ופריסה. הסוכנים = מבצעים/מכינים.</span></div>
+      <div class="p"><b>גיבוי הידע.</b> <span>המסמכים והלוגים ב-remote (git) — כדי שהזיכרון המוסדי לא יאבד.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">14</span>יעדים — פרויקט וסוכן</h2>
+    <p class="sub">יעד־על לפרויקט, ולכל סוכן יעד שמתחבר אליו (מפורט בקובץ ה-md שלו).</p>
+    <div class="principles">
+      <div class="p"><b>G1 · מוצר חי.</b> <span>PWA חינמית, מותקנת, שמגלמת את מותג ה"אנטי־אפליקציה" — ברמת PASS.</span></div>
+      <div class="p"><b>G2 · משתמשים אמיתיים.</b> <span>בטא + פידבק; ללמוד אם אנשים חוזרים.</span></div>
+      <div class="p"><b>G3 · בידול ואיכות.</b> <span>כל תוצר עומד בברנד בוק ובסטנדרט.</span></div>
+      <div class="p"><b>G4 · ולידציה למוניטיזציה.</b> <span>לבדוק נכונות לשלם (5$) לפני בניית backend.</span></div>
+      <div class="p"><b>G5 · תפעול בטוח.</b> <span>אדם בלולאה, תיעוד מלא, אפס סיכון כספי/משפטי.</span></div>
+      <div class="p"><b>יעד לכל סוכן.</b> <span>מוגדר ב-md שלו כ-KPI מדיד (למשל: Art Director — 0 חריגות מהברנד בוק).</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">15</span>בעלות על תוצרים</h2>
+    <p class="sub">לכל תוצר יש סוכן אחראי אחד — כדי שלא ייפול בין הכיסאות.</p>
+    <table>
+      <tr><th>תוצר</th><th>סוכן אחראי</th><th>מיקום / פורמט</th></tr>
+      <tr><td>האפליקציה (PWA)</td><td>Build / QA</td><td><code>index.html</code> + repo</td></tr>
+      <tr><td>דפי נחיתה (שיווק)</td><td>Content + SEO/GEO + Build</td><td>עתידי — HTML</td></tr>
+      <tr><td>ברנד בוק</td><td>Art Director</td><td><code>sippy-brandbook.html</code></td></tr>
+      <tr><td>Design System / טוקנים</td><td>Art Director + Build</td><td>טוקנים בקוד</td></tr>
+      <tr><td>קופי (מוצר + שיווק)</td><td>Content</td><td>לכל שפה</td></tr>
+      <tr><td>דוחות אנליטיקס</td><td>Analytics</td><td><code>/logs</code></td></tr>
+      <tr><td>תדריכי הפצה</td><td>Distribution Scout</td><td><code>/queues</code></td></tr>
+      <tr><td>נראוּת AI-search</td><td>SEO/GEO</td><td>schema, llms.txt, FAQ</td></tr>
+      <tr><td>backend + DB (עתידי)</td><td>Monetization</td><td>עתידי</td></tr>
+      <tr><td>מפת דרכים</td><td>Product Analyst</td><td><code>/logs</code></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">16</span>מודל עבודה לכל סוכן</h2>
+    <p class="sub">מודל לפי סוג המשימה — לא בזבוז Opus על משימות מכניות, ולא Haiku על שיפוט.</p>
+    <table>
+      <tr><th>מודל</th><th>למה</th><th>סוכנים</th></tr>
+      <tr><td><b>opus</b></td><td>שיפוט, אסטרטגיה, כתיבה</td><td>Art Director, UX, Content, Ads, Product Analyst, Monetization</td></tr>
+      <tr><td><b>sonnet</b></td><td>בנייה, בדיקות, תפעול</td><td>Build, QA, Release, Analytics, SEO/GEO, Scout, Experiment</td></tr>
+      <tr><td><b>haiku</b></td><td>מכני וזול במיוחד</td><td>שמור לפי צורך (סריקות פשוטות)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">17</span>וורקפלואו — לבד, במקביל, בשרשרת</h2>
+    <p class="sub">כל סוכן רץ לבד לפי ה-md שלו. המערכת מריצה בשרשרת כשיש תלות, במקביל כשאין.</p>
+    <div class="tree">מחזור בנייה (לכל שינוי):
+  משימה → Build → [ QA ∥ Art Director ∥ UX Auditor ] → סינתזה → ורדיקט אלייך
+
+מחזור השקה:
+  PASS → Release (הכנה) → אישורך → פריסה חיה → Analytics מודד
+
+מחזור צמיחה (מתוזמן):
+  יומי:  Distribution Scout ∥ Content → /queues → אישורך
+  שבועי: Analytics → Product Analyst → הצעות → תעדוף שלך → Build/Experiment</div>
+    <p style="margin-top:10px;font-size:13.5px"><b>במקביל:</b> ביקורות בלתי־תלויות (QA, מותג, UX); Scout ו-Analytics. <b>בשרשרת:</b> Build→ביקורות→ורדיקט; Analytics→Product. <b>תמיד אחרון:</b> שער אנושי לכל דבר בלתי־הפיך/כספי/פומבי.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">18</span>דוחות, אישורים, ותיבת המשימות שלך</h2>
+    <p class="sub">איך דברים מגיעים אלייך, מה הם מכילים, ואיך את מאשרת.</p>
+    <div class="tree">sipy/
+├─ reports/         # דוחות יומיים/שבועיים אלייך
+├─ queues/          # ממתין לאישורך (מזהה לכל פריט)
+├─ tasks-for-you/   # משימות באחריותך
+├─ decisions/       # מה אישרת/דחית + נימוק
+└─ logs/            # יומן פעולות</div>
+    <div class="principles" style="margin-top:12px">
+      <div class="p"><b>הדוח היומי — איך.</b> <span>משימת בוקר מתוזמנת כותבת <code>reports/daily-*.md</code>, שולחת אותו אלייך כאן כקובץ, ואם תרצי — התראה לטלפון.</span></div>
+      <div class="p"><b>הדוח היומי — מה.</b> <span>1) מה נעשה (שורה לכל סוכן) 2) מדדים 3) מחכה לאישורך 4) המשימות שלך 5) חסמים 6) 24 השעות הבאות.</span></div>
+      <div class="p"><b>איך מאשרים.</b> <span>כל פריט מקבל מזהה (<code>APR-…-01</code>). את עונה "מאשרת/דוחה" כאן או מסמנת בקובץ; הריצה הבאה פועלת רק על מה שאושר.</span></div>
+      <div class="p"><b>המשימות שלך.</b> <span>כל פריט ב-<code>tasks-for-you/</code>: מה · למה · זמן משוער · דדליין · איך · עדיפות. מרוכז בדוח, ונשלח בנפרד כשדחוף (KYC, דומיין).</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">19</span>טרום־השקה: קופי ונראוּת ב-AI Search</h2>
+    <p class="sub">שני דברים שקל לשכוח לפני השקה — ושניהם קריטיים לגילוי.</p>
+    <div class="principles">
+      <div class="p"><b>קופי למוצר (Content).</b> <span>כל מילה שהמשתמש רואה — onboarding, תוויות, מיקרו־קופי, הודעות — בכל השפות ובטון המותג, לפני השקה.</span></div>
+      <div class="p"><b>נראוּת ב-AI Search (SEO/GEO).</b> <span>שאנשים ומנועי תשובה (ChatGPT, Perplexity, Google AI) ימצאו ויציטטו את Sippy: דף נחיתה אינדוקסבילי, schema.org, FAQ, meta/OG, ו-<code>llms.txt</code>. PWA לבדה לא מספיקה לגילוי — צריך דף תוכן אמיתי.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">20</span>קבצי ההגדרה (md) לכל סוכן</h2>
+    <p class="sub">לכל סוכן יש קובץ md אמיתי — frontmatter + גוף — שאפשר להפעיל.</p>
+    <div class="card"><p style="margin:0">חבילת <code>agents/</code> (נמסרת בנפרד): לכל סוכן <code>&lt;name&gt;.md</code> עם שם, תיאור, מודל, כלים, רמת אוטונומיה, מטרה, יעדים, וורקפלואו, תוצרים, DoD, שער אנושי, תיעוד ומדיניות כשל. בנוסף: <code>_TEMPLATE.md</code>, <code>GOALS.md</code>, <code>ORCHESTRATION.md</code>, <code>OPERATIONS.md</code>, <code>README.md</code>. להפעלה ב-Claude Code: מעתיקים ל-<code>.claude/agents/</code>.</p></div>
+  </section>
+
+  <section>
+    <h2><span class="n">21</span>מה אי אפשר — בכנות</h2>
+    <div class="card">
+      <p style="margin:0">כדי שהמסמך יהיה אמין: אין כאן "צוות סוכנים אוטונומי" שמנהל את העסק לבד. אין דמון שרץ ברציפות; אין סוכן שמחזיק ארנק ומוציא כסף על מודעות בלי אדם; אין פרסום עצמאי בקהילות; ואין פעולה בלתי־הפיכה בלי אישורך. מה שכן: סוכנים ממוקדים שמכינים, בונים, בודקים ומתעדים — ומגישים לך את הרגעים הרגישים להחלטה. זו מערכת חצי־אוטומטית עם אדם בלולאה, וזה מה שנכון וגם בטוח למוצר בשלב הזה.</p>
+    </div>
+  </section>
+
+  <footer>Sippy · Agent System · v1 · מקור אמת אחד לממשל הסוכנים · ניתן לעדכון תוך כדי</footer>
+</div>
+</body>
+</html>

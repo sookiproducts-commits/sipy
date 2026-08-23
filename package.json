@@ -1,0 +1,12 @@
+{
+  "name": "sippy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/app.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.46.0"
+  }
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sippy — תוכנית עסקית ומפת דרכים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1a2230;--muted:#5a6675;--faint:#8a94a3;--line:#e6e9ee;--accent:#2f6f8f;--accent-bg:#e9f2f6;--go:#2f7d4f;--warn:#b07a2e;--stop:#b0563a;--sh:0 1px 2px rgba(20,30,45,.04),0 6px 18px rgba(20,30,45,.05);}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Heebo",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;}
+  .page{max-width:980px;margin:0 auto;padding:0 22px 90px;}
+  header.top{background:var(--ink);color:#fff;border-radius:0 0 24px 24px;padding:40px;margin:0 -22px 12px;position:relative;overflow:hidden;}
+  header.top::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(47,111,143,.5),transparent 70%);}
+  .tag-top{font-size:12px;font-weight:700;letter-spacing:.16em;color:#9cc3d4;margin:0 0 8px;}
+  header.top h1{margin:0 0 6px;font-size:30px;font-weight:800;}
+  header.top p{margin:0;color:#cdd6e0;font-size:16px;max-width:680px;}
+  section{margin-top:34px;}
+  h2{font-size:21px;font-weight:800;margin:0 0 4px;}
+  h2 .n{color:var(--accent);margin-inline-end:8px;}
+  .sub{color:var(--muted);font-size:14.5px;margin:0 0 16px;}
+  p{margin:0 0 10px;color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:18px 20px;}
+  .lead{font-size:18px;color:var(--ink);font-weight:600;}
+  .note{background:var(--accent-bg);border-inline-start:3px solid var(--accent);border-radius:10px;padding:14px 16px;color:#28546b;font-size:14.5px;}
+  table{width:100%;border-collapse:collapse;font-size:13.8px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);margin-top:6px;}
+  th,td{padding:11px 12px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#eef1f4;font-weight:700;font-size:12.5px;}
+  td{color:var(--muted);}
+  tr:last-child td{border-bottom:none;}
+  .phase{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:16px 18px;margin-bottom:12px;position:relative;}
+  .phase .h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .phase .ph{font-weight:800;font-size:16.5px;}
+  .phase .when{font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-bg);padding:3px 10px;border-radius:999px;}
+  .phase .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;font-size:13.8px;margin-top:4px;}
+  .phase .k{color:var(--faint);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;display:block;}
+  .phase .v{color:var(--muted);}
+  .full{grid-column:1/-1;}
+  .gate{color:var(--go);font-weight:700;}
+  .you{color:var(--ink);}
+  .timeline{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .tl{flex:1;min-width:110px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);box-shadow:var(--sh);text-align:center;}
+  .tl .w{font-size:11.5px;color:var(--faint);font-weight:700;}
+  .tl .t{font-weight:700;font-size:13.5px;margin-top:2px;}
+  .canvas{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cel{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);box-shadow:var(--sh);}
+  .cel h4{margin:0 0 6px;font-size:14px;font-weight:800;color:var(--accent);}
+  .cel p{margin:0;font-size:13.8px;}
+  .gng{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .gng .col{border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--card);box-shadow:var(--sh);}
+  .gng h4{margin:0 0 8px;font-size:14px;}
+  .gng ul{margin:0;padding-inline-start:18px;font-size:13.6px;color:var(--muted);}
+  .gng li{margin:5px 0;}
+  .go h4{color:var(--go);} .stop h4{color:var(--stop);}
+  footer{margin-top:44px;color:var(--faint);font-size:12.5px;text-align:center;}
+  @media(max-width:680px){.phase .grid,.canvas,.gng{grid-template-columns:1fr;}header.top{padding:32px 24px;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <p class="tag-top">SIPPY · BUSINESS PLAN & ROADMAP · v1.1</p>
+    <h1>תוכנית עסקית ומפת דרכים</h1>
+    <p>יעדים לפי שלבים, שערי מעבר, ולו״ז ריאלי — מכויל לשעה אחת ביום שלך. הבנייה נעשית ע"י הסוכנים וקודקס; השעה שלך הולכת להחלטות, קלט, ולחלקים האנושיים. בדיקות משתמשים סינתטיים נכנסות כשכבת QA/Product מדורגת, לא כתחליף לבטא אמיתית.</p>
+  </header>
+
+  <section>
+    <h2><span class="n">0</span>המסגרת</h2>
+    <p class="lead">Sippy הוא ניסוי קטן ומבוקר, לא סטארטאפ. המטרה: להשיק מוצר חינמי מלוטש, לראות אם אנשים חוזרים, ורק אז לשקול כסף.</p>
+    <div class="note"><b>צוואר הבקבוק הוא הזמן שלך, לא הבנייה.</b> קודקס והסוכנים בונים ומאמתים אוטומטית. השעה היומית שלך מספיקה כי היא מוקדשת ל: החלטות, קלט (רפרנסים), פתיחת חשבונות, ובשלב הבטא — הקשר האנושי. חלק מהשלבים תלויים בזמן־אמת (פידבק, תאוצה) שלא ניתן להאיץ.</p></div>
+    <p class="sub" style="margin-top:12px">בדיקות משתמשים סינתטיים יתחילו מתכנון בלבד, ואז ירוצו בשכבות: Core אחרי זרימה יציבה, Expanded לפני בטא, ו-Full sweep לפני חשיפה רחבה.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">1</span>ציר הזמן — במבט על</h2>
+    <p class="sub">אומדן ריאלי בשעה/יום. השבועות תלויים בעיקר בקצב שלך ובתגובת השוק, לא במאמץ בנייה.</p>
+    <div class="timeline">
+      <div class="tl"><div class="w">עד 27.8</div><div class="t">זהות</div></div>
+      <div class="tl"><div class="w">עד 14.9</div><div class="t">בנייה ל-PASS</div></div>
+      <div class="tl"><div class="w">עד 24.9</div><div class="t">השקה חינם</div></div>
+      <div class="tl"><div class="w">מדורג</div><div class="t">בדיקות סינתטיות</div></div>
+      <div class="tl"><div class="w">עד 22.10</div><div class="t">בטא ופידבק</div></div>
+      <div class="tl"><div class="w">נוב׳ (מותנה)</div><div class="t">מוניטיזציה</div></div>
+      <div class="tl"><div class="w">~15.11</div><div class="t">להכפיל / לעצור</div></div>
+    </div>
+    <p class="sub" style="margin-top:10px">נקודת אפס: 17.8.2026. התאריכים הם יעדים עם באפר, ומניחים שהרפרנסים יגיעו עד ~24.8 ושקצב השימוש מאפשר כמה מחזורי־עבודה בשבוע. הם יזוזו אם הרפרנסים יתעכבו או אם המכסה תיגמר.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">★</span>מגבלות שימוש ותקצוב</h2>
+    <p class="sub">גם Claude וגם Codex שלך הם Pro — מכסה מוגבלת. וב-Claude יש לך פרויקטים מקבילים שחולקים את אותה מכסה. זה קובע את הקצב.</p>
+    <div class="note"><b>עיקרון:</b> בנייה כבדה → Codex (מכסה נפרדת), כדי לא לשרוף את מכסת Claude שלך. Claude שמור לביקורת, החלטות ופתירת חסמים. Sippy מקבל <b>נתח תחום</b> ממכסת Claude כדי לא לחנוק את הפרויקטים המקבילים שלך.</div>
+    <div class="canvas" style="margin-top:12px">
+      <div class="cel"><h4>איפה כל עבודה רצה</h4><p>קוד → Codex. ביקורת/החלטות/חסמים → Claude. משימות מכניות → מודלים זולים + batching.</p></div>
+      <div class="cel"><h4>קצב עבודה: יומי אבל קטן</h4><p>העבודה האוטומטית (Claude+סוכנים, Codex+סוכנים) רצה <b>כל יום — אבל קצת</b>: סבב קל ב-08:00, תוכן א׳/ג׳/ה׳, וסיכום יומי של כל הגורמים ב-23:00. שקטה כשאין מה לדווח.</p></div>
+      <div class="cel"><h4>קצב ריאלי</h4><p>כמה מחזורי־עבודה בשבוע, לא רציף. לכן התאריכים כוללים באפר — ואם המכסה תיגמר, הם יזוזו.</p></div>
+      <div class="cel"><h4>מה זה אומר לך</h4><p>אין צורך "להאכיל" את המערכת. את נותנת קלט/אישורים בשעה שלך; הקצב מווסת את עצמו לפי המכסות.</p></div>
+    </div>
+    <h3 style="font-size:16px;font-weight:800;margin:18px 0 6px">לוח יעדים עם תאריכים</h3>
+    <table>
+      <tr><th>שלב</th><th>יעד (תאריך)</th><th>תלוי בעיקר ב־</th></tr>
+      <tr><td>0 · זהות</td><td><b>27.8</b></td><td>רפרנסים ממך</td></tr>
+      <tr><td>1 · בנייה ל-PASS</td><td><b>14.9</b></td><td>קצב Codex + מכסה</td></tr>
+      <tr><td>2 · השקה חינם</td><td><b>24.9</b></td><td>פתיחת חשבונות (שלך)</td></tr>
+      <tr><td>3 · בטא ופידבק</td><td><b>22.10</b></td><td>זמן־אמת (פידבק) — לא ניתן להאיץ</td></tr>
+      <tr><td>4 · מוניטיזציה</td><td><b>נוב׳ (מותנה)</b></td><td>איתות נכונות־לשלם</td></tr>
+      <tr><td>5 · החלטה Go/No-Go</td><td><b>~15.11</b></td><td>נתוני הבטא</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">1.5</span>בדיקות משתמשים סינתטיים</h2>
+    <p class="sub">שכבת בדיקה מוקדמת שמטרתה לתפוס חיכוך ברור לפני שמגיעים לטסטרים אמיתיים. היא לא מחליפה בטא, אלא חוסכת ממנה בעיות צפויות.</p>
+    <div class="canvas">
+      <div class="cel"><h4>מאגר מלא</h4><p>30–50 פרופילים לפי ארכיטיפ × שפה/מדינה × יחידות × רמת טכנולוגיה. כולל עברית/ערבית RTL, US עם fl oz, ומשתמשים לא טכניים.</p></div>
+      <div class="cel"><h4>Core 10–12</h4><p>רץ אחרי שהזרימה הבסיסית יציבה: onboarding, בחירת כלים, הוספת שתייה, undo, יעד, localStorage ואיפוס יום.</p></div>
+      <div class="cel"><h4>Expanded 25–30</h4><p>רץ לפני בטא: i18n, RTL/LTR, ml/fl oz, מובייל, התקנת PWA, הבנה ראשונית ופרטיות.</p></div>
+      <div class="cel"><h4>Full sweep 40–60</h4><p>רץ לפני חשיפה רחבה או שינוי גדול: שפות, מדינות, ציפיות שונות, קופי, ומוכנות Launch/Monetization.</p></div>
+    </div>
+    <div class="note" style="margin-top:12px"><b>תזמון:</b> בשלב 0 מתכננים בלבד. בשלב 1 מפעילים Core. בשלב 2 מפעילים Expanded. בשלב 3 משווים מול פידבק אמיתי כדי ללמוד איפה הסינתטי צדק ואיפה פספס.</div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>השלבים — יעד, תפקידך, ושער מעבר</h2>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 0 · זהות ותשתית</span><span class="when">~שבוע 1</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד (Milestone)</span><span class="v">ברנד בוק שעובר PASS + מערכת טוקנים (צבע/טיפוגרפיה/מרווח).</span></div>
+        <div><span class="k">התפקיד שלך</span><span class="v you">לשלוח רפרנסים (~1ש') · לאשר כיוון (~30ד' ×2).</span></div>
+        <div><span class="k">הסוכנים</span><span class="v">Art Director גוזר זהות מהרפרנסים ומעדכן ברנד בוק. Product Analyst מגדיר Synthetic User Matrix, בלי להריץ עדיין בדיקות כבדות.</span></div>
+        <div class="full"><span class="k">שער מעבר</span><span class="v gate">brand-review = PASS · מטריצת יוזרים סינתטיים מוכנה.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 1 · בנייה ל-PASS</span><span class="when">~שבועות 2–3</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד</span><span class="v">אפליקציה V3 מלאה: PWA מותקנת, i18n, נגישות AA, בדיקות ירוקות, ו-Core synthetic users אחרי שהזרימה יציבה.</span></div>
+        <div><span class="k">התפקיד שלך</span><span class="v you">פידבק/אישורים ~20–30ד'/יום.</span></div>
+        <div><span class="k">הסוכנים</span><span class="v">Codex בונה יומי; QA + brand + ux מאמתים; Product Analyst/QA מריצים Core 10–12 יוזרים סינתטיים כשיש לופ יציב; CI ב-GitHub.</span></div>
+        <div class="full"><span class="k">שער מעבר</span><span class="v gate">brand-review + ux-audit = PASS · CI ירוק · Core synthetic users ללא חוסמים.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 2 · השקה חינם</span><span class="when">~שבוע 4</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד</span><span class="v">כתובת חיה + דף נחיתה + קופי + SEO/GEO + אנליטיקס + Expanded synthetic users לפני שליחה לאנשים אמיתיים.</span></div>
+        <div><span class="k">התפקיד שלך</span><span class="v you">לפתוח חשבונות אירוח + אנליטיקס (~1ש' חד־פעמי) · לאשר עלייה לאוויר.</span></div>
+        <div><span class="k">הסוכנים</span><span class="v">Release, Content, SEO/GEO, Analytics, QA/Product Analyst לבדיקת i18n/RTL/units/מובייל.</span></div>
+        <div class="full"><span class="k">שער מעבר</span><span class="v gate">חי, מותקן, נמדד · Expanded synthetic users ללא חוסמים לפני בטא.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 3 · בטא ופידבק</span><span class="when">~שבועות 5–8</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד</span><span class="v">Full synthetic sweep לפני גיוס רחב, ואז ~50 טסטרים, איסוף פידבק, איטרציות, ואיתות ריטנשן (אנשים חוזרים?).</span></div>
+        <div><span class="k">התפקיד שלך</span><span class="v you">הפצה אנושית ~30ד'/יום — כאן את הכי נדרשת. לדבר עם אנשים.</span></div>
+        <div><span class="k">הסוכנים</span><span class="v">Distribution Scout מגיש תדריך יומי; Product Analyst מנתח פידבק אמיתי ומשווה אותו לתובנות הסינתטיות.</span></div>
+        <div class="full"><span class="k">שער מעבר</span><span class="v gate">איתות אמיתי: אנשים חוזרים ואוהבים (ריטנשן/המלצות) · אין חוסמי שפה/מובייל ידועים.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 4 · ולידציית מוניטיזציה</span><span class="when">מותנה בנתונים</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד</span><span class="v">ניתוח תמחור + (אם מוצדק) paywall 5$ + backend/DB לניהול משלמים.</span></div>
+        <div><span class="k">התפקיד שלך</span><span class="v you">החלטת מחיר + KYC לספק תשלום (~1–2ש').</span></div>
+        <div><span class="k">הסוכנים</span><span class="v">Monetization (ניתוח→המלצה→מימוש) + Product Analyst לבדיקת תגובות סינתטיות למסרים/מחיר לפני בנייה יקרה.</span></div>
+        <div class="full"><span class="k">שער מעבר</span><span class="v gate">מספיק איתות נכונות־לשלם מהבטא · אין חוסמי מסר/אמון ברורים.</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="h"><span class="ph">שלב 5 · החלטה</span><span class="when">Go / No-Go</span></div>
+      <div class="grid">
+        <div class="full"><span class="k">יעד</span><span class="v">החלטה מודעת: להכפיל (הפצה אורגנית + אולי מודעות), לפַבֵּט, או לעצור — לפי הנתונים.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>המודל העסקי (קל)</h2>
+    <div class="canvas">
+      <div class="cel"><h4>בעיה</h4><p>מעקב שתייה בסיסי דורש היום אפליקציה עמוסה (חשבון, התראות, גרפים). רוב האנשים רוצים רק לראות "כמה שתיתי היום".</p></div>
+      <div class="cel"><h4>פתרון</h4><p>כלי־מבט יומי, אנטי־אפליקציה: פתיחה → הקשה → סגירה. בלי חשבון, בלי היסטוריה, בינלאומי.</p></div>
+      <div class="cel"><h4>שוק ומיצוב</h4><p>מי שנרתע מאפליקציות בריאות כבדות. הבידול הוא הריסון עצמו — "פחות זה יותר".</p></div>
+      <div class="cel"><h4>מודל הכנסה</h4><p>חינם עכשיו. בהמשך, אם מוצדק: תשלום חד־פעמי (~5$, לאימות) — merchant-of-record שמטפל במע"מ.</p></div>
+      <div class="cel"><h4>מבנה עלויות</h4><p>כמעט אפס עד מוניטיזציה: אירוח ואנליטיקס בשכבה חינמית; דומיין אופציונלי; עמלות תשלום רק בשלב 4.</p></div>
+      <div class="cel"><h4>הפצה</h4><p>אורגנית תחילה: בטא תמורת פידבק, נראוּת ב-AI Search (GEO), שיתוף אותנטי. מודעות בתשלום רק אם יש הצדקה.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>מדדים — איך יודעים שזה עובד</h2>
+    <table>
+      <tr><th>שלב</th><th>המדד המרכזי</th><th>מה נחשב "טוב"</th></tr>
+      <tr><td>השקה</td><td>Activation — סיום onboarding והוספה ראשונה</td><td>רוב הנכנסים מסיימים ומוסיפים לפחות פעם אחת</td></tr>
+      <tr><td>בטא</td><td>Retention — חזרה ביום-2 / יום-7</td><td>נתח משמעותי חוזר אחרי יום ואחרי שבוע</td></tr>
+      <tr><td>בטא</td><td>אהבה — האם היו ממליצים</td><td>פידבק חיובי ספונטני / בקשות לשתף</td></tr>
+      <tr><td>מוניטיזציה</td><td>Conversion — נכונות לשלם 5$</td><td>אחוז סביר מהמשתמשים הפעילים היו/משלמים</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Go / No-Go — מתי להכפיל ומתי לעצור</h2>
+    <p class="sub">כדי לא לשקוע בזמן ללא סוף — קריטריון עצירה כן, וזה בריא לניסוי קטן.</p>
+    <div class="gng">
+      <div class="col go"><h4>סימני ירוק (להמשיך/להכפיל)</h4><ul><li>אנשים חוזרים ביום-7 בלי שמזכירים להם.</li><li>פידבק ספונטני חיובי / בקשות לשתף.</li><li>תאוצה אורגנית קטנה שמתחילה לבד.</li></ul></div>
+      <div class="col stop"><h4>סימני עצירה (לעצור/לפבט)</h4><ul><li>אחרי ~4 שבועות בטא: כמעט אף אחד לא חוזר.</li><li>צריך "לדחוף" כל משתמש ידנית.</li><li>אין שום איתות נכונות־לשלם בשלב 4.</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>סיכונים ומענה</h2>
+    <table>
+      <tr><th>סיכון</th><th>מענה</th></tr>
+      <tr><td>תקרת זהות מותג (הקושי הכי גדול)</td><td>רפרנסים ממך → גזירת זהות; בהמשך אולי מעצב.ת אנושי.ת</td></tr>
+      <tr><td>הפצה קשה (מוצר לא מתפשט לבד)</td><td>GEO + בטא + שיתוף אותנטי; מודעות רק אם מוצדק</td></tr>
+      <tr><td>עמלות על מחיר זעיר</td><td>ניתוח תמחור (סוכן מוניטיזציה) לפני שקובעים מספר</td></tr>
+      <tr><td>הזמן שלך</td><td>הסוכנים בונים; שעה/יום להחלטות והחלק האנושי</td></tr>
+      <tr><td>שחיקה / סחבת</td><td>קריטריון עצירה ברור — ניסוי, לא התחייבות אינסופית</td></tr>
+    </table>
+  </section>
+
+  <footer>Sippy · Business Plan & Roadmap · v1.1 · מסמך חי, מתעדכן לפי הנתונים · לו״ז מכויל לשעה/יום</footer>
+</div>
+</body>
+</html>

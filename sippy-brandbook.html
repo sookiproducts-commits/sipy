@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sippy — Brand Book v3 · Bold Flat / Bright</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --honey:#eaf2e3; --ink:#17241f; --turq:#35cfc9; --turq-deep:#12a49d; --coral:#f25757; --gold:#f2cd60; --moss:#7dce82; --white:#fff;
+    --disp:"Rubik",system-ui,sans-serif; --ui:"Heebo",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ui);color:var(--ink);background:var(--honey);line-height:1.6;}
+  .page{max-width:960px;margin:0 auto;padding:0 20px 90px;}
+  .disp{font-family:var(--disp);}
+  .cover{background:var(--ink);color:var(--honey);border-radius:0 0 28px 28px;margin:0 -20px 14px;padding:46px 40px;position:relative;overflow:hidden;}
+  .cover .badge{display:inline-block;background:var(--coral);color:#fff;font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;border-radius:999px;margin-bottom:18px;}
+  .cover .wm{font-family:var(--disp);font-weight:900;font-size:74px;line-height:.9;letter-spacing:-.03em;display:flex;align-items:center;gap:14px;}
+  .cover .mark{width:54px;height:62px;flex:none;}
+  .cover p{margin:14px 0 0;color:#cfe0d6;font-size:17px;max-width:600px;}
+  .cover .c1,.cover .c2{position:absolute;border-radius:50%;}
+  .cover .c1{width:150px;height:150px;background:var(--turq);inset-inline-start:-30px;bottom:-60px;opacity:.9;}
+  .cover .c2{width:80px;height:80px;background:var(--gold);inset-inline-start:120px;bottom:10px;}
+  section{margin-top:42px;}
+  .ey{font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--turq-deep);margin:0 0 6px;}
+  h2{font-family:var(--disp);font-weight:900;font-size:30px;margin:0 0 10px;letter-spacing:-.02em;}
+  h3{font-family:var(--disp);font-weight:700;font-size:18px;margin:20px 0 8px;}
+  p{margin:0 0 10px;color:#3a4a42;}
+  .lead{font-size:20px;color:var(--ink);font-weight:700;}
+  .note{border-inline-start:6px solid var(--coral);background:var(--white);padding:14px 16px;font-size:14.5px;color:#3a4a42;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{font-family:var(--disp);font-weight:700;font-size:15px;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--honey);}
+  .chip.t{background:var(--turq);color:var(--ink);} .chip.c{background:var(--coral);color:#fff;} .chip.g{background:var(--gold);color:var(--ink);}
+  .chip.o{background:transparent;color:#a04a4a;border:2px dashed #e0b3b3;text-decoration:line-through;}
+  .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0;border:3px solid var(--ink);border-radius:16px;overflow:hidden;}
+  .sw>div{padding:26px 16px;font-family:var(--disp);font-weight:700;font-size:14px;}
+  .mono{font-family:ui-monospace,Menlo,monospace;direction:ltr;font-size:12px;font-weight:400;}
+  .pairs{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px;}
+  .pairs td{padding:9px 8px;border-bottom:1px solid #d7e0cf;}
+  .pass{color:#1f7d4f;font-weight:800;font-size:12px;}
+  .logo-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .lbox{flex:1;min-width:200px;display:grid;place-items:center;padding:34px;border:3px solid var(--ink);border-radius:16px;}
+  .lbox.d{background:var(--ink);}
+  .wordmark{font-family:var(--disp);font-weight:900;font-size:44px;display:flex;align-items:center;gap:10px;direction:ltr;letter-spacing:-.03em;}
+  .tcard{border:3px solid var(--ink);border-radius:16px;padding:24px;background:var(--white);}
+  .big-num{font-family:var(--disp);font-weight:900;font-size:78px;line-height:1;}
+  .big-num .u{font-family:var(--ui);font-size:22px;font-weight:500;color:#5a6b60;}
+  .shapes{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .shape{width:84px;height:84px;flex:none;}
+  .mock{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  .phone{width:256px;flex:none;border:4px solid var(--ink);border-radius:30px;overflow:hidden;background:var(--honey);}
+  .phone .top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;}
+  .phone .brand{font-family:var(--disp);font-weight:900;font-size:22px;}
+  .phone .globe{width:30px;height:30px;border:2.5px solid var(--ink);border-radius:50%;}
+  .phone .today{text-align:center;font-family:var(--disp);font-weight:700;font-size:11px;letter-spacing:.16em;color:#6a7a70;margin-top:6px;}
+  .phone .count{text-align:center;font-family:var(--disp);font-weight:900;font-size:52px;line-height:1;margin-top:2px;}
+  .phone .count .u{font-family:var(--ui);font-size:17px;font-weight:500;color:#5a6b60;}
+  .phone .goal{text-align:center;font-size:12px;color:#5a6b60;margin-top:4px;}
+  .phone .glass{margin:14px auto;width:118px;height:146px;border:4px solid var(--ink);border-top:none;border-radius:6px 6px 16px 16px;position:relative;overflow:hidden;background:var(--white);}
+  .phone .water{position:absolute;left:0;right:0;bottom:0;height:64%;background:var(--turq);}
+  .phone .dock{display:flex;gap:8px;justify-content:center;padding:12px;}
+  .phone .vbtn{flex:1;border:3px solid var(--ink);border-radius:12px;text-align:center;padding:9px 4px;font-family:var(--disp);font-weight:700;font-size:15px;background:var(--white);}
+  .phone .add{background:var(--coral);color:#fff;}
+  .cap{font-size:13.5px;color:#3a4a42;max-width:330px;}
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .dd .col{border:3px solid var(--ink);border-radius:16px;padding:16px 18px;background:var(--white);}
+  .dd h4{font-family:var(--disp);font-weight:900;margin:0 0 8px;font-size:16px;}
+  .dd ul{margin:0;padding-inline-start:18px;font-size:14px;color:#3a4a42;}
+  .dd li{margin:5px 0;}
+  .do h4{color:#1f7d4f;} .dont h4{color:#c0433f;}
+  footer{margin-top:46px;color:#7a8a80;font-size:12.5px;text-align:center;}
+  @media(max-width:640px){.dd{grid-template-columns:1fr;}.cover .wm{font-size:56px;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="c1"></div><div class="c2"></div>
+    <span class="badge">BRAND BOOK · V3 · BOLD FLAT / BRIGHT</span>
+    <div class="wm"><svg class="mark" viewBox="0 0 54 62"><path d="M27 3c13 17 21 26 21 35a21 21 0 1 1-42 0C6 29 14 20 27 3z" fill="#35cfc9"/><rect x="6" y="39" width="42" height="20" fill="#12a49d"/><path d="M27 3c13 17 21 26 21 35a21 21 0 1 1-42 0C6 29 14 20 27 3z" fill="none" stroke="#17241f" stroke-width="3.5"/></svg>sippy</div>
+    <p>נועז, שטוח, ובהיר — צורה חזקה, צבע כיפי, ביטחון. עם עוגן דיו והרבה אוויר כדי להישאר חצוף־בוגר ולא ילדותי.</p>
+  </div>
+
+  <section>
+    <p class="ey">01 · הכיוון</p>
+    <h2>Bold. Flat. Bright. Cheeky.</h2>
+    <p class="lead">צורות שטוחות ובוטחות, פלטה בהירה ומשחקית, וגישה חצופה — לוקחים מוצר קטן ומצחיק ומעצבים אותו כאילו הוא ענק.</p>
+    <div class="chips">
+      <span class="chip">שטוח</span><span class="chip t">בהיר</span><span class="chip c">חצוף</span><span class="chip g">אנרגטי</span><span class="chip">גיאומטרי מדויק</span>
+      <span class="chip o">גרדיאנטים</span><span class="chip o">ילדותי</span><span class="chip o">קורפורטיבי</span><span class="chip o">קר</span>
+    </div>
+    <div class="note" style="margin-top:14px"><b>בהיר אבל לא ילדותי:</b> העיגון הוא דיו כמעט־שחור + בסיס Honeydew ניטרלי + הרבה אוויר + גיאומטריה מדויקת + קופי חצוף־בוגר. הצבעים הבהירים הם בלוקים ואקסנטים, לא הכל־קשת בכל מסך.</div>
+  </section>
+
+  <section>
+    <p class="ey">02 · צבע (הפלטה שלך)</p>
+    <h2>בהיר, משחקי, מעוגן בדיו</h2>
+    <p>מהשתי אופציות שלך גזרתי מערכת אחת: Honeydew כבסיס, טורקיז כמים, קוראל לפעולה/חגיגה, זהב להדגשה, וירוק כמשני. דיו לכל הטקסט והקווים.</p>
+    <div class="sw">
+      <div style="background:#eaf2e3;color:#17241f">Honeydew · בסיס<br><span class="mono">#EAF2E3</span></div>
+      <div style="background:#17241f;color:#eaf2e3">Ink · טקסט/קווים<br><span class="mono">#17241F</span></div>
+      <div style="background:#35cfc9;color:#17241f">Turquoise · מים<br><span class="mono">#35CFC9</span></div>
+      <div style="background:#12a49d;color:#fff">Turq Deep<br><span class="mono">#12A49D</span></div>
+      <div style="background:#f25757;color:#fff">Coral · פעולה<br><span class="mono">#F25757</span></div>
+      <div style="background:#f2cd60;color:#17241f">Gold · הדגשה<br><span class="mono">#F2CD60</span></div>
+      <div style="background:#7dce82;color:#17241f">Moss · משני<br><span class="mono">#7DCE82</span></div>
+    </div>
+    <table class="pairs">
+      <tr><td>Ink על Honeydew</td><td class="mono">13:1</td><td><span class="pass">AAA</span></td></tr>
+      <tr><td>Ink על Turquoise</td><td class="mono">7.3:1</td><td><span class="pass">AAA</span></td></tr>
+      <tr><td>Ink על Gold</td><td class="mono">10:1</td><td><span class="pass">AAA</span></td></tr>
+      <tr><td>לבן על Coral</td><td class="mono">3.6:1</td><td><span class="pass">AA (טקסט גדול/מודגש בלבד)</span></td></tr>
+    </table>
+    <p style="font-size:13px;color:#7a8a80;margin-top:6px">כלל: טקסט = דיו על צבע (bold flat: שחור על בהיר). קוראל לפעולה אחת בכל מסך. מים באפליקציה = טורקיז שטוח.</p>
+  </section>
+
+  <section>
+    <p class="ey">03 · לוגו ומארק</p>
+    <h2>מארק שטוח + לוגוטייפ כבד</h2>
+    <p>טיפת מים גיאומטרית בטורקיז, חצי תחתון בטורקיז עמוק (קו־מים שטוח), קו מתאר דיו עבה. לוגוטייפ "sippy" ב-Rubik כבד, אותיות קטנות, צפוף.</p>
+    <div class="logo-row">
+      <div class="lbox"><div class="wordmark"><svg width="32" height="38" viewBox="0 0 54 62"><path d="M27 3c13 17 21 26 21 35a21 21 0 1 1-42 0C6 29 14 20 27 3z" fill="#35cfc9"/><rect x="6" y="39" width="42" height="20" fill="#12a49d"/><path d="M27 3c13 17 21 26 21 35a21 21 0 1 1-42 0C6 29 14 20 27 3z" fill="none" stroke="#17241f" stroke-width="3.5"/></svg>sippy</div></div>
+      <div class="lbox d"><div class="wordmark" style="color:var(--honey)"><svg width="32" height="38" viewBox="0 0 54 62"><path d="M27 3c13 17 21 26 21 35a21 21 0 1 1-42 0C6 29 14 20 27 3z" fill="#35cfc9"/><rect x="6" y="39" width="42" height="20" fill="#12a49d"/></svg>sippy</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="ey">04 · טיפוגרפיה</p>
+    <h2>Rubik + Heebo</h2>
+    <p>תצוגה/מספר/לוגו: <b>Rubik</b> כבד (700–900) — נועז, בטוח, מעט אופי, עברית+לטינית. UI/גוף: <b>Heebo</b> נקי. שניהם חינמיים. ספרות טבלאיות למספר המשתנה.</p>
+    <div class="tcard">
+      <div class="big-num">1,450 <span class="u">מ״ל</span></div>
+      <div class="disp" style="font-weight:700;font-size:26px;margin-top:6px">ממה את שותה?</div>
+    </div>
+  </section>
+
+  <section>
+    <p class="ey">05 · שפה גרפית</p>
+    <h2>צורות שטוחות ובלוקים בהירים</h2>
+    <p>עיגולים, קשתות (גל־מים), טיפות ומלבני צבע — בקו מתאר דיו עבה. הרכבות עם הרבה אוויר, בלוק צבע בהיר אחד דומיננטי בכל פעם.</p>
+    <div class="shapes">
+      <svg class="shape" viewBox="0 0 84 84"><circle cx="42" cy="42" r="39" fill="#35cfc9" stroke="#17241f" stroke-width="4"/></svg>
+      <svg class="shape" viewBox="0 0 84 84"><rect x="3" y="3" width="78" height="78" rx="14" fill="#f25757" stroke="#17241f" stroke-width="4"/></svg>
+      <svg class="shape" viewBox="0 0 84 84"><path d="M0 56 Q21 38 42 56 T84 56 V84 H0 Z" fill="#12a49d"/></svg>
+      <svg class="shape" viewBox="0 0 84 84"><path d="M42 6c14 18 22 27 22 36a22 22 0 1 1-44 0C20 33 28 24 42 6z" fill="#f2cd60" stroke="#17241f" stroke-width="4"/></svg>
+      <svg class="shape" viewBox="0 0 84 84"><circle cx="42" cy="42" r="39" fill="#7dce82" stroke="#17241f" stroke-width="4"/></svg>
+    </div>
+  </section>
+
+  <section>
+    <p class="ey">06 · יישום</p>
+    <h2>איך זה נראה במסך</h2>
+    <div class="mock">
+      <div class="phone">
+        <div class="top"><span class="brand">sippy</span><span class="globe"></span></div>
+        <div class="today">היום</div>
+        <div class="count">1,450<span class="u"> מ״ל</span></div>
+        <div class="goal">מתוך 2,000 מ״ל</div>
+        <div class="glass"><div class="water"></div></div>
+        <div class="dock"><div class="vbtn">250</div><div class="vbtn">500</div><div class="vbtn add">＋</div></div>
+      </div>
+      <p class="cap">מספר ענק ב-Rubik, כוס שטוחה עם מים בטורקיז וקו מתאר דיו עבה, כפתורי כלים בקו עבה, וכפתור הוספה בקוראל. בהיר, נועז, קריא במבט — ונאמן לאנטי־אפליקציה. מוקאפ סטטי להמחשה.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="ey">07 · עשה / אל תעשה</p>
+    <div class="dd">
+      <div class="col do"><h4>עשה</h4><ul><li>צבע שטוח ובלוקים בהירים.</li><li>דיו לכל טקסט וקו מתאר עבה.</li><li>Rubik כבד וגדול.</li><li>קוראל לפעולה אחת בכל מסך.</li><li>הרבה אוויר; בלוק בהיר דומיננטי אחד.</li></ul></div>
+      <div class="col dont"><h4>אל תעשה</h4><ul><li>גרדיאנטים / צללים רכים.</li><li>כל־הצבעים־בכל־מסך (קשת).</li><li>צורות מעוגלות־קריקטורה / פרצופים.</li><li>טקסט לבן קטן על קוראל.</li><li>פונט דק / סריף עדין.</li></ul></div>
+    </div>
+  </section>
+
+  <footer>Sippy Brand Book · v3 · Bold Flat / Bright · פלטה מהאופציות שלך · ממתין לאישורך לפני בנייה</footer>
+</div>
+</body>
+</html>
