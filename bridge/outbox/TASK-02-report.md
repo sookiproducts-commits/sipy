@@ -31,3 +31,9 @@ Notes:
 - Local npm-based acceptance cannot run in this environment because Node/npm/npx/corepack are not on PATH.
 - Per `bridge/PLAYBOOK.md`, GitHub Actions CI is the authoritative gate for the full test suite.
 - The first GitHub Actions run should start after this commit is published to `origin/main`.
+
+CI follow-up:
+- First remote CI run started on GitHub after publish.
+- Result: failed in `localStorage survives reload` with `8 !== 2`.
+- Diagnosis: the test read the animated total before the counter reached its final value; the app persisted the final value correctly after reload.
+- Fix prepared: wait for the counter to reach the selected vessel amount before reloading.

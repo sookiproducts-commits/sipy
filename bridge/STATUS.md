@@ -10,4 +10,4 @@
 | TASK-06 | סוכני-קוד ב-codex-agents/ | TODO | Codex |
 | TASK-07 | מימוש ברנד v3 (מאושר) באפליקציה | TODO | Codex |
 
-עדכון אחרון: 2026-08-28 10:32 (Codex) · TASK-01 הועלה ל-GitHub וננעל כ-DONE; TASK-02 הוסיף GitHub Actions CI וננעל כ-DONE.
+עדכון אחרון: 2026-08-28 10:48 (Codex) · תיקון CI מוכן כ-commit מקומי וממתין להעלאה; push ישיר מ-Codex עדיין נחסם ב-`fatal: could not read Username for 'https://github.com': Device not configured`.

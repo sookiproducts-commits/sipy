@@ -64,18 +64,22 @@ test("vessel tap increases the total and Undo decreases it", async ({ page }) =>
   await onboard(page);
 
   const initial = Number(await page.locator("#totalNum").textContent());
+  const increment = Number(await page.locator(".vbtn .vlabel").first().textContent());
+  const expectedAfterAdd = initial + increment;
   await page.locator(".vbtn").first().click();
   await waitFor(
-    async () => Number(await page.locator("#totalNum").textContent()) > initial,
-    "total to increase"
+    async () => Number(await page.locator("#totalNum").textContent()) === expectedAfterAdd,
+    "total to finish increasing"
   );
 
   const afterAdd = Number(await page.locator("#totalNum").textContent());
+  assert.equal(afterAdd, expectedAfterAdd);
   await page.locator("#undoBtn").click();
   await waitFor(
-    async () => Number(await page.locator("#totalNum").textContent()) < afterAdd,
-    "total to decrease after undo"
+    async () => Number(await page.locator("#totalNum").textContent()) === initial,
+    "total to finish decreasing after undo"
   );
+  assert.equal(Number(await page.locator("#totalNum").textContent()), initial);
 });
 
 test("switching to Hebrew sets document direction to rtl", async ({ page }) => {
@@ -96,10 +100,11 @@ test('Hebrew UI has no Latin text except "Sippy"', async ({ page }) => {
 test("localStorage survives reload", async ({ page }) => {
   await openApp(page);
   await onboard(page);
+  const expectedTotal = Number(await page.locator(".vbtn .vlabel").first().textContent());
   await page.locator(".vbtn").first().click();
   await waitFor(
-    async () => Number(await page.locator("#totalNum").textContent()) > 0,
-    "total to increase before reload"
+    async () => Number(await page.locator("#totalNum").textContent()) === expectedTotal,
+    "total to finish increasing before reload"
   );
   const beforeReload = Number(await page.locator("#totalNum").textContent());
 
