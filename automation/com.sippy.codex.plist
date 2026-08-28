@@ -10,11 +10,11 @@
     <string>-lc</string>
     <string>"$HOME/Claude/Projects/sipy/automation/codex-runner.sh" &gt;&gt; "$HOME/Claude/Projects/sipy/automation/codex-run.log" 2&gt;&amp;1</string>
   </array>
-  <!-- Daily 09:00. If the Mac is ASLEEP at 09:00, launchd runs it automatically on the next WAKE. -->
+  <!-- Daily 10:30. If the Mac is ASLEEP at 09:00, launchd runs it automatically on the next WAKE. -->
   <key>StartCalendarInterval</key>
   <dict>
-    <key>Hour</key><integer>9</integer>
-    <key>Minute</key><integer>0</integer>
+    <key>Hour</key><integer>10</integer>
+    <key>Minute</key><integer>30</integer>
   </dict>
   <!-- Safety-net retry every 3h: if the 09:00 run failed, a later run picks it up (runner skips if nothing pending). -->
   <key>StartInterval</key>

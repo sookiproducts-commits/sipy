@@ -10,4 +10,4 @@
 | TASK-06 | סוכני-קוד ב-codex-agents/ | TODO | Codex |
 | TASK-07 | מימוש ברנד v3 (מאושר) באפליקציה | TODO | Codex |
 
-עדכון אחרון: 2026-08-23 (Codex) · TASK-01 BLOCKED בשלב push: אין DNS/גישה ל-github.com בסביבת הריצה. הקוד וה-commit המקומי מוכנים. · מותג v3 מאושר.
+עדכון אחרון: 2026-08-28 (Claude) · שורש התקיעה: push חסום כי רשת סגורה בסביבת Codex — הקוד וה-commit תקינים. תיקון: לתת Full Access למשימת Codex באפליקציה (פעם אחת). ואז TASK-01 עובר ל-DONE וה-CI רץ.

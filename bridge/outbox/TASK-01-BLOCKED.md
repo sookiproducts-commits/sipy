@@ -1,100 +1,121 @@
 # TASK-01 — BLOCKED
 Status: BLOCKED
 Files changed:
-- `.gitignore`
-- `.openai/hosting.json`
-- `AGENTS.md`
-- `CODEX.md`
-- `INDEX.md`
-- `README.md`
-- `agents/content-social.md`
-- `agents/monetization.md`
-- `automation/CODEX-AUTORUN.md`
-- `automation/codex-runner.sh`
-- `automation/com.sippy.codex.plist`
-- `brand-review.skill`
 - `bridge/ACTIVITY.md`
-- `bridge/PLAYBOOK.md`
-- `bridge/PROTOCOL.md`
-- `bridge/README.md`
 - `bridge/STATUS.md`
-- `bridge/inbox/TASK-01-ANSWER.md`
-- `bridge/inbox/TASK-01-pwa-scaffold.md`
-- `bridge/inbox/TASK-02-github-ci.md`
-- `bridge/inbox/TASK-03-commit-docs.md`
-- `bridge/inbox/TASK-04-daily-2300-summary.md`
-- `bridge/inbox/TASK-05-synthetic-core.md`
-- `bridge/inbox/TASK-06-codex-agents.md`
-- `bridge/inbox/TASK-07-brand-v3-implement.md`
-- `bridge/outbox/FYI-suzanna-synthetic-priority.md`
-- `bridge/outbox/README.md`
-- `bridge/outbox/SYNTHETIC-USER-RESEARCHER-HANDOFF.ACCEPTED.md`
 - `bridge/outbox/TASK-01-BLOCKED.md`
-- `bridge/outbox/TASK-01-report.md`
-- `colors/Screenshot 2026-08-17 at 23.41.32.png`
-- `colors/Screenshot 2026-08-17 at 23.43.23.png`
-- `content-social.skill`
-- `docs/DEVLOG.md`
-- `docs/stitch-brief.md`
-- `icons/icon-192.png`
-- `icons/icon-512.png`
-- `index.html`
-- `logs/pm-2026-08-19.md`
-- `manifest.webmanifest`
-- `netlify.toml`
-- `package.json`
-- `product-management.skill`
-- `sippy-agent-system.html`
-- `sippy-agents/GOALS.md`
-- `sippy-agents/OPERATIONS.md`
-- `sippy-agents/ORCHESTRATION.md`
-- `sippy-agents/README.md`
-- `sippy-agents/_TEMPLATE.md`
-- `sippy-agents/ads-planner.md`
-- `sippy-agents/analytics.md`
-- `sippy-agents/art-director.md`
-- `sippy-agents/build.md`
-- `sippy-agents/content-copy.md`
-- `sippy-agents/distribution-scout.md`
-- `sippy-agents/experiment.md`
-- `sippy-agents/monetization.md`
-- `sippy-agents/product-analyst.md`
-- `sippy-agents/product-manager.md`
-- `sippy-agents/qa.md`
-- `sippy-agents/release.md`
-- `sippy-agents/seo-geo.md`
-- `sippy-agents/synthetic-user-researcher.md`
-- `sippy-agents/ux-auditor.md`
-- `sippy-brandbook.html`
-- `sippy-moodboard.html`
-- `sippy-roadmap.html`
-- `sipy-plan.md`
-- `sw.js`
-- `tests/app.test.mjs`
-- `ux-audit.skill`
 
 What was completed before the block:
-- TASK-01 scaffold exists and is committed locally as `c1d3aa5` with message `TASK-01: PWA scaffold and tests`.
-- Added manifest, service worker, icons, Netlify config, README, package/test script, Playwright tests, and service-worker registration.
-- Updated `bridge/outbox/TASK-01-report.md` with local validation output.
-- Cleared stale zero-byte `.git/index.lock`.
+- Read `AGENTS.md`, automation memory, `bridge/STATUS.md`, `bridge/PROTOCOL.md`, `bridge/PLAYBOOK.md`, TASK-01 inbox, and TASK-01 answer.
+- Resumed TASK-01 because it is still the first inbox task whose task file says TODO and its required push has not succeeded.
+- Confirmed TASK-01 was already marked DOING, then refreshed the status timestamp for this run.
+- Re-ran the requested acceptance commands and lightweight validation.
+- Confirmed local TASK-01 commits are present:
+  - `c1d3aa5 TASK-01: PWA scaffold and tests`
+  - `46ff85f TASK-01: record push blocker`
 
 Blocker:
-`git push -u origin main` cannot reach GitHub from this run environment because DNS resolution fails.
+`git push -u origin main` still cannot reach GitHub from this run environment because DNS resolution fails for `github.com`.
 
 Exact command/output:
 
 ```text
-$ git add bridge/outbox/TASK-01-report.md bridge/ACTIVITY.md
-$ git commit --amend --no-edit
-[main c1d3aa5] TASK-01: PWA scaffold and tests
- Date: Sun Aug 23 09:35:59 2026 +0300
- 71 files changed, 3840 insertions(+)
- ...
-$ git status --short
+$ npm install
+zsh:1: command not found: npm
+```
+
+```text
+$ npm test
+zsh:1: command not found: npm
+```
+
+```text
+$ which node || true
+$ which npm || true
+$ which npx || true
+$ which corepack || true
+$ node --version || true
+$ node --check tests/app.test.mjs
+$ node --check sw.js
+$ node -e 'JSON.parse(require("fs").readFileSync("manifest.webmanifest","utf8")); JSON.parse(require("fs").readFileSync("package.json","utf8")); console.log("json ok")'
+node not found
+npm not found
+npx not found
+corepack not found
+zsh:1: command not found: node
+zsh:1: command not found: node
+zsh:1: command not found: node
+zsh:1: command not found: node
+```
+
+```text
+$ python3 - <<'PY'
+import json
+from pathlib import Path
+from struct import unpack
+for path in ['manifest.webmanifest', 'package.json']:
+    with open(path, encoding='utf-8') as f:
+        json.load(f)
+    print(f'{path}: json ok')
+for path in ['sw.js', 'tests/app.test.mjs']:
+    text = Path(path).read_text(encoding='utf-8')
+    print(f'{path}: {len(text)} bytes')
+for p in [Path('icons/icon-192.png'), Path('icons/icon-512.png')]:
+    data = p.read_bytes()
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise SystemExit(f'{p}: not png')
+    width, height = unpack('>II', data[16:24])
+    print(f'{p}: {width}x{height}')
+PY
+manifest.webmanifest: json ok
+package.json: json ok
+sw.js: 1922 bytes
+tests/app.test.mjs: 4554 bytes
+icons/icon-192.png: 192x192
+icons/icon-512.png: 512x512
+```
+
+```text
+$ rg -n "serviceWorker|manifest.webmanifest|manifest" index.html manifest.webmanifest sw.js package.json tests/app.test.mjs .gitignore netlify.toml README.md
+README.md:27:The app includes a web manifest, placeholder PNG icons, and an offline-first service worker for the app shell and fonts.
+sw.js:5:  "./manifest.webmanifest",
+index.html:8:<link rel="manifest" href="manifest.webmanifest" />
+index.html:358:if ("serviceWorker" in navigator && location.protocol !== "file:") {
+index.html:360:    navigator.serviceWorker.register("./sw.js").catch(function () {});
+```
+
+```text
+$ if [ -f .git/index.lock ]; then printf 'index.lock exists\n'; else printf 'no index.lock\n'; fi
+no index.lock
+```
+
+```text
+$ git status --short --branch
+## main
+ M automation/com.sippy.codex.plist
+ M bridge/ACTIVITY.md
+ M bridge/STATUS.md
+ M bridge/outbox/TASK-01-BLOCKED.md
+ M sippy-roadmap.html
+```
+
+```text
+$ git remote -v
+origin	https://github.com/sookiproducts-commits/sipy.git (fetch)
+origin	https://github.com/sookiproducts-commits/sipy.git (push)
+```
+
+```text
+$ git log --oneline --decorate --max-count=8
+46ff85f (HEAD -> main) TASK-01: record push blocker
+c1d3aa5 TASK-01: PWA scaffold and tests
+```
+
+```text
 $ git push -u origin main
 fatal: unable to access 'https://github.com/sookiproducts-commits/sipy.git/': Could not resolve host: github.com
 ```
 
 What is needed:
-- Re-run the push from an environment with DNS/network access to `github.com`, or adjust the automation sandbox so git can resolve and reach GitHub.
+- Re-run the push from an environment with DNS/network access to `github.com`, or adjust the automation sandbox/network so git can resolve and reach GitHub.
+- Local npm/node tooling is unavailable on PATH in this run, but per `TASK-01-ANSWER.md` and `bridge/PLAYBOOK.md`, that is not the blocker; CI should run after push succeeds.

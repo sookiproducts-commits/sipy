@@ -13,3 +13,5 @@
 - **אימות GitHub נכשל** ב-push (401/403/credentials) → צריך `gh auth login` או PAT. אל תיגע בטוקנים.
 - כל דבר **כספי / פרסום פומבי / תמחור / מיצוב / בלתי-הפיך**.
 - החלטת מוצר גדולה שאין לה ברירת מחדל סבירה (נדיר — בד"כ ה-PM מכריע).
+
+- **`Could not resolve host: github.com` / `CODEX_SANDBOX_NETWORK_DISABLED`** → זו **חסימת רשת של סביבת Codex**, לא באג בקוד. הקוד תקין; ה-commit המקומי עובד; רק ה-push חסום. תיקון (חד-פעמי, אצל Suzanna): באפליקציית Codex, לתת למשימת "Sippy daily bridge task" **Full Access** (או להפעיל network access). אחרי זה ה-push עובר. אל תמשיך לנסות push בלולאה — סמן שממתין ל-Suzanna.
